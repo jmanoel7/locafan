@@ -1,0 +1,24 @@
+1) descompacte o arquivo "TCC-JoaoManoel-VandoFurtado.tar.gz" dentro de uma pasta qualquer
+
+2) abra um terminal dentro da pasta "TCC-JoaoManoel-VandoFurtado" criada no passo anterior
+
+3) escolha somente uma das opções abaixo, de acordo com o seu sistema:
+
+   a) para sistemas baseados em ubuntu 14.04, execute no terminal sem as aspas:
+        "./install-deps-ubuntu.sh"
+
+   b) para sistemas baseados em fedora 20, execute no terminal sem as aspas:
+   "./install-deps-fedora.sh"
+
+4) ainda no terminal, execute sem as aspas:
+    "./install-virtualenv.sh"
+
+5) ainda no terminal, execute sem as aspas:
+    "source ~/.local/virtualenvs/locafan/bin/activate"
+
+6) ainda no terminal, execute sem as aspas:
+    "python2.7 locafan/manage.py runserver --noreload"
+
+7) num navegador web acesse: "http://127.0.0.1:8000/"
+
+8) PRONTO A APLICAÇÃO ESTA RODANDO!
