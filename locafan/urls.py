@@ -12,9 +12,9 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'locafan.views.home', name='locafan_home'),
-    url(r'^consultar/cliente/$', 'consultar.views.cliente', name='consultar_cliente'),
-    url(r'^consultar/fantasia/$', 'consultar.views.fantasia', name='consultar_fantasia'),
-    url(r'^consultar/locacao/$', 'consultar.views.locacao', name='consultar_locacao'),
+    url(r'^clientes/$',  'clientes.views.index',  name='clientes_index'),
+    url(r'^fantasias/$', 'fantasias.views.index', name='fantasias_index'),
+    url(r'^locacoes/$',  'locacoes.views.index',  name='locacoes_index'),
 )
 
 if settings.DEBUG:
