@@ -1,6 +1,6 @@
 {% extends "base.djhtml" %}
 
-{% block title %}LocaFan - Buscar Fantasias{% endblock %}
+{% block title %}LocaFan - {{ acao }} Fantasias{% endblock %}
 
 {% block content %}
 

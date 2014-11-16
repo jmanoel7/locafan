@@ -1,6 +1,6 @@
 {% extends "base.djhtml" %}
 
-{% block title %}LocaFan - Buscar Clientes{% endblock %}
+{% block title %}LocaFan - {{ acao }} Clientes{% endblock %}
 
 {% block content %}
 

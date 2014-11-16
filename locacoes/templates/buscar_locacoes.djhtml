@@ -1,6 +1,6 @@
 {% extends "base.djhtml" %}
 
-{% block title %}LocaFan - Buscar Loca&ccedil;&otilde;es{% endblock %}
+{% block title %}LocaFan - {{ acao }} Loca&ccedil;&otilde;es{% endblock %}
 
 {% block content %}
 
