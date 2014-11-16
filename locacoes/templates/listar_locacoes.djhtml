@@ -1,0 +1,9 @@
+{% extends "base.djhtml" %}
+
+{% block title %}LocaFan - Listar Loca&ccedil;&otilde;es{% endblock %}
+
+{% block content %}
+
+    <p>Em Constru&ccedil;&atilde;o ...</p>
+
+{% endblock %}
