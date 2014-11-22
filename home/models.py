@@ -10,6 +10,9 @@ class Clientes(models.Model):
         max_length=100,
         unique=True,
     )
+    dt_nascimento = models.DateField(
+        u'Data de nascimento',
+    )
     rg = models.CharField(
         u'RG',
         max_length=50,
@@ -92,6 +95,9 @@ class Locacoes(models.Model):
     )
     pg_realizado = models.FloatField(
         u'Pagamento Realizado',
+    )
+    status = models.BooleanField(
+        u'Status da Locação',
     )
     cliente_id = models.ForeignKey(
         Clientes,
