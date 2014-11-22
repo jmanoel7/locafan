@@ -1,12 +1,30 @@
 <!DOCTYPE html>
+
 <html lang="pt-br">
+
 <head>
-	<link rel="stylesheet" href="{{ STATIC_URL }}site/style.css" />
+
+    {% load static %}
+
+    <script type="text/javascript" src="{% static 'site/js/jquery-1.11.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'site/js/jquery-ui.min.js' %}"></script>
+
+	<link rel="stylesheet" href="{% static 'site/css/base_style.css' %}" />
+	<link rel="stylesheet" href="{% static 'site/css/jquery-ui.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'site/css/jquery-ui.structure.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'site/css/jquery-ui.theme.min.css' %}" />
+
 	<meta charset="utf-8" />
 	<title>{% block title %}{% endblock %}</title>
+
+	{% block head %}{% endblock %}
+
 </head>
 
 <body>
+
 	{% block content %}{% endblock %}
+
 </body>
+
 </html>

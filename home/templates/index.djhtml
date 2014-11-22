@@ -1,6 +1,6 @@
 {% extends "base.djhtml" %}
 
-{% block title %}LocaFan - Tela Inicial{% endblock %}
+{% block title %}LocaFan - Home{% endblock %}
 
 {% block content %}
 

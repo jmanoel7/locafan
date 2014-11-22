@@ -1,0 +1,81 @@
+{% extends "base.djhtml" %}
+
+{% block title %}LocaFan - {{ tarefa }} Cliente{% endblock %}
+
+{% block head %}
+
+{% load static %}
+<script type="text/javascript" src="{% static 'site/js/jquery.mask.min.js' %}"></script>
+
+<script type= "text/javascript" >
+ 
+function unmask(){
+    $('.input_dn').unmask();
+    $('.input_cpf').unmask();
+    $('.input_cep').unmask();
+    $('.input_tel_fixo').unmask();
+    $('.input_tel_cel').unmask();
+    $('.input_tel_trab').unmask();
+};
+
+$(function(){
+    $('.input_dn').mask('00/00/0000', {placeholder: '__/__/____'});
+    $('.input_cpf').mask('000.000.000-00', {placeholder: '___.___.___-__'});
+    $('.input_cep').mask('00000-000', {placeholder: '_____-___'});
+    $('.input_tel_fixo').mask('(00) 0000-0000', {placeholder: '(__) ____-____'});
+    $('.input_tel_cel').mask('(00) 0000-0000', {placeholder: '(__) ____-____'});
+    $('.input_tel_trab').mask('(00) 0000-0000', {placeholder: '(__) ____-____'});
+});
+ 
+$(document).ready(function(){
+    $(".zip-field").blur(function(){
+        var arr;
+        // validates CEP
+        var regex = /^([0-9]{5})[-. ]?([0-9]{3})$/;
+        if (regex.test($(".zip-field").val()))
+        {
+            $.get('/cep/'+$(".zip-field").val()+'/', function(data,status)
+            {
+                eval("var arr = "+data);
+                $("#"+address.street).val(arr.street);
+                $("#"+address.district).val(arr.district);
+                $("#"+address.city).val(arr.city);
+                $("#"+address.state).val(arr.state);
+            });
+        }
+    });
+});
+ 
+</script>
+
+{% endblock head %}
+
+{% block content %}
+
+<h3>{{ tarefa }} Cliente</h3>
+<form action="." method="post">{% csrf_token %}
+
+    {# Include the hidden fields #}
+    {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+    {% endfor %}
+
+    {# Include the visible fields #}
+    {% for field in form.visible_fields %}
+        <div id="p_{{ field.id_for_label }}" class="field_wrapper">
+        <p>
+            <span class="label-text">{{ field.label_tag }}</span><br />
+            <span>{{ field }}</span>
+        </p>
+        <p class="help-text">
+            <span>{{ field.help_text }}</span>
+        </p>
+        <p class="help-text">
+            <span class="field_error_message">{{ field.errors|striptags }}</span>
+        </p>
+        </div>
+    {% endfor %}
+    <p><input type="submit" value="{{ tarefa }}" onlcick="unmask();"/></p>
+</form>
+
+{% endblock %}

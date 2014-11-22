@@ -1,0 +1,27 @@
+{% extends "base.djhtml" %}
+
+{% block title %}LocaFan - {{ tarefa }} realizad{{ genero }} com sucesso! {% endblock %}
+
+{% block content %}
+
+<h3>{{ tarefa }} do cliente:</h3>
+    
+<h2>&quot;{{ nome }}&quot;</h2>
+    
+<h3>realizad{{ genero }} com sucesso!</h3>
+
+{% if voltar = '1' %}
+
+<button onclick="location.assign('{% url clientes_cadastrar %}');" >Voltar</button>
+
+{% else %}{% if voltar = '2' %}
+
+<button onclick="location.assign('{% url clientes_listar %}');" >Voltar</button>
+
+{% else %}{% if voltar = '3' %}
+
+<button onclick="location.assign('{% url clientes_editar %}');" >Voltar</button>
+
+{% endif %}{% endif %}{% endif %}
+
+{% endblock %}

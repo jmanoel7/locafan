@@ -1,0 +1,38 @@
+{% extends "base.djhtml" %}
+
+{% block title %}LocaFan - Listar Clientes{% endblock %}
+
+{% block content %}
+
+<h3>Lista de clientes cadastrados</h3>
+
+{% if clientes %}
+  
+    <table>
+        <tr>
+            <th>NOME</th>
+            <th>CPF</th>
+            <th>Multa</th>
+            <th>Exclus&atilde;o</th>
+        </tr>
+
+    {% for cliente in clientes %}
+
+        <tr>
+            <td><a href="{% url clientes_editar_nome cliente.nome '2' %}">{{ cliente.nome }}</a></td>
+            <td>{{ cliente.cpf }}</td>
+            <td>{{ cliente.multa }}</td>
+            <td>Excluir?</td>
+        </tr>
+
+    {% endfor %}
+
+    </table>
+
+{% else %}
+
+  <p>Ainda não temos nenhum cliente cadastrado.</p>
+
+{% endif %}
+
+{% endblock %}
