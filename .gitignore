@@ -1,0 +1,4 @@
+*.py[cod]
+*.so
+settings_local.py
+settings_production.py
