@@ -6,13 +6,13 @@
 
     {% load static %}
 
-    <script type="text/javascript" src="{% static 'site/js/jquery-1.11.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'site/js/jquery-ui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'site/jquery/jquery-1.11.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'site/jquery-ui/jquery-ui.min.js' %}"></script>
 
-	<link rel="stylesheet" href="{% static 'site/css/base_style.css' %}" />
-	<link rel="stylesheet" href="{% static 'site/css/jquery-ui.min.css' %}" />
-	<link rel="stylesheet" href="{% static 'site/css/jquery-ui.structure.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'site/css/jquery-ui.theme.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'site/mycss/base_style.css' %}" />
+	<link rel="stylesheet" href="{% static 'site/jquery-ui/jquery-ui.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'site/jquery-ui/jquery-ui.structure.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'site/jquery-ui/jquery-ui.theme.min.css' %}" />
 
 	<meta charset="utf-8" />
 	<title>{% block title %}{% endblock %}</title>

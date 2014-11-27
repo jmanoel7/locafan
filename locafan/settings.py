@@ -15,7 +15,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASES = {
-    'default': {
+   'default': {
         'ENGINE': 'django.db.backends.mysql',   # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'locafan',                      # Or path to database file if using sqlite3.
         'USER': 'tcc',                          # Not used with sqlite3.
@@ -38,6 +38,12 @@ TIME_ZONE = 'America/Sao_Paulo'
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'pt-br'
+
+DATE_INPUT_FORMATS = (
+    '%d/%m/%Y', '%Y-%m-%d', '%m/%d/%Y', '%m/%d/%y',
+    '%b %d %Y', '%b %d, %Y', '%d %b %Y', '%d %b, %Y',
+    '%B %d %Y', '%B %d, %Y', '%d %B %Y', '%d %B, %Y',
+)
 
 SITE_ID = 1
 
@@ -121,6 +127,7 @@ TEMPLATE_DIRS = (
 
 INSTALLED_APPS = (
     # django apps
+    'django_extensions',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

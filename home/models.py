@@ -11,7 +11,7 @@ class Clientes(models.Model):
         unique=True,
     )
     dt_nascimento = models.DateField(
-        u'Data de nascimento',
+        u'Data de Nascimento',
     )
     rg = models.CharField(
         u'RG',
@@ -23,6 +23,10 @@ class Clientes(models.Model):
         max_length=11,
         unique=True,
     )
+    cep = models.CharField(
+        u'CEP',
+        max_length=8,
+    )
     end = models.CharField(
         u'Endereço',
         max_length=100,
@@ -33,7 +37,7 @@ class Clientes(models.Model):
         blank=True,
         null=True,
     )
-    bairo = models.CharField(
+    bairro = models.CharField(
         u'Bairro',
         max_length=100,
     )
@@ -47,23 +51,19 @@ class Clientes(models.Model):
         choices=STATE_CHOICES,
         default='GO',
     )
-    cep = models.CharField(
-        u'CEP',
-        max_length=8,
-    )
     tel_fixo = models.CharField(
         u'Telefone Fixo',
-        max_length=11,
+        max_length=10,
         blank=True,
         null=True,
     )
     tel_cel = models.CharField(
         u'Telefone Celular',
-        max_length=11,
+        max_length=10,
     )
     tel_trab = models.CharField(
-        u'Telefone Trabalho',
-        max_length=11,
+        u'Telefone do Trabalho',
+        max_length=10,
         blank=True,
         null=True,
     )
@@ -73,18 +73,20 @@ class Clientes(models.Model):
         blank=True,
         null=True,
     )
-    multa = models.FloatField(
+    multa = models.DecimalField(
         u'Multa',
         default=0.00,
+        max_digits=6,
+        decimal_places=2,
     )
-    
+
     def __unicode__(self):
         return 'Nome: %s, CPF: %s, Multa: %s' % (
             self.nome,
             self.cpf,
             self.multa,
         )
-        
+
 class Locacoes(models.Model):
     
     dt_locacao = models.DateField(

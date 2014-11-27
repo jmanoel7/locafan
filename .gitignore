@@ -1,4 +1,9 @@
 *.py[cod]
 *.so
+.*.swp
 settings_local.py
 settings_production.py
+tags
+ipython_notebooks/
+.ipynb_checkpoints/
+static/

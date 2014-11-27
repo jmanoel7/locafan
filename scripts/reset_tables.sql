@@ -1,4 +1,7 @@
 BEGIN;
+DROP TABLE `home_fantasias`;
+DROP TABLE `home_locacoes`;
+DROP TABLE `home_clientes`;
 CREATE TABLE `home_clientes` (
     `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
     `nome` varchar(100) NOT NULL UNIQUE,

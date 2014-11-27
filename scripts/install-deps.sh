@@ -21,6 +21,8 @@ sudo apt-get install \
     virtualenvwrapper \
     python-virtualenv \
     python-pip \
-    python-setuptools
+    python-setuptools \
+    libgraphviz-dev \
+    graphviz
 exit 0
 

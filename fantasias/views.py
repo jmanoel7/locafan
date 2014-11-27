@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
 
+
 def cadastrar(request):
     return render(request, 'cadastrar_fantasias.djhtml')
 

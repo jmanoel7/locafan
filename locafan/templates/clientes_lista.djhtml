@@ -19,10 +19,10 @@
     {% for cliente in clientes %}
 
         <tr>
-            <td><a href="{% url clientes_editar_nome cliente.nome '2' %}">{{ cliente.nome }}</a></td>
+            <td><a href="{% url clientes_editar_nome cliente.nome %}">{{ cliente.nome }}</a></td>
             <td>{{ cliente.cpf }}</td>
             <td>{{ cliente.multa }}</td>
-            <td>Excluir?</td>
+            <td><a href="{% url clientes_excluir_nome cliente.nome %}">Excluir?</a></td>
         </tr>
 
     {% endfor %}

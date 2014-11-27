@@ -1,4 +1,9 @@
 Django==1.4.16
+django-cep==1.0.9
 MySQL-python==1.2.5
 Pillow==2.6.1
-django-cep==1.0.9
+django-extensions==1.4.6
+ipython==2.3.1
+pygraphviz==1.3rc2
+pep8==1.5.7
+pyflakes==0.8.1
