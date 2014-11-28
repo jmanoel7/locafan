@@ -5,23 +5,25 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from datetime import date
 
-from home.models import Clientes
-from clientes.forms import ClientesCadastrarForm, ClientesEditarForm, ClientesExcluirForm
+from home.models import Cliente
+from clientes.forms import ClienteCadastrarForm, ClienteEditarForm, ClienteExcluirForm
 
 def cadastrar(request):
     if request.method == 'POST':
-        form = ClientesCadastrarForm(request.POST)
+        form = ClienteCadastrarForm(request.POST)
         if form.is_valid():
             novo_cliente = form.save()
             return render(request, 'clientes_form_ok.djhtml', {
-                'tarefa': u'Inclusão',
+                'tarefa': u'Cadastro',
                 'nome': novo_cliente.nome,
+                'genero': 'o',
             })
     else:
-        form = ClientesCadastrarForm()
+        form = ClienteCadastrarForm()
     return render(request, 'clientes_form.djhtml', {
         'form': form,
         'tarefa': 'Cadastrar',
+        'botao': 'Cadastrar',
     })
 
 def editar(request):
@@ -29,22 +31,28 @@ def editar(request):
     return render(request, 'clientes_busca.djhtml', {'tarefa': 'Editar'})
 
 def editar_nome(request, nome):
-    cliente = get_object_or_404(Clientes, nome=nome)
+    cliente = get_object_or_404(Cliente, nome=nome)
     if request.method == 'POST':
-        form = ClientesEditarForm(request.POST, instance=cliente)
+        form = ClienteEditarForm(request.POST, instance=cliente)
         if form.is_valid():
             novo_cliente = form.save()
             return render(request, 'clientes_form_ok.djhtml', {
-                'tarefa': u'Alteração',
+                'tarefa': u'Edição',
                 'nome': novo_cliente.nome,
+                'genero': 'a',
             })
     else:
-        form = ClientesEditarForm(instance=cliente)
-    return render(request, 'clientes_form.djhtml', {'form': form, 'nome': nome, 'tarefa': 'Editar'})
+        form = ClienteEditarForm(instance=cliente)
+    return render(request, 'clientes_form.djhtml', {
+        'form': form,
+        'nome': nome,
+        'tarefa': 'Editar',
+        'botao': 'Alterar',
+    })
 
 def listar(request):
 
-    clientes = Clientes.objects.all()
+    clientes = Cliente.objects.all()
     return render(request, 'clientes_lista.djhtml', {'clientes': clientes})
 
 def excluir(request):
@@ -59,17 +67,19 @@ def excluir_nome(request, nome):
     :returns: uma requisicao http de um formulario de exclusao com os dados do cliente se existir o cliente, senao um erro http 404
 
     """
-    cliente = get_object_or_404(Clientes, nome=nome)
+    cliente = get_object_or_404(Cliente, nome=nome)
     if request.method == 'POST':
         cliente.delete()
         return render(request, 'clientes_form_ok.djhtml', {
             'tarefa': u'Exclusão',
             'nome': nome,
+            'genero': 'a',
         })
     else:
-        form = ClientesExcluirForm(instance=cliente)
+        form = ClienteExcluirForm(instance=cliente)
         return render(request, 'clientes_form.djhtml', {
             'form': form,
             'nome': nome,
             'tarefa': 'Excluir',
+            'botao': 'Excuir',
         })
