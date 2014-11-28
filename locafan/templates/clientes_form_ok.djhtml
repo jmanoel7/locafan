@@ -1,14 +1,14 @@
 {% extends "base.djhtml" %}
 
-{% block title %}LocaFan - {{ tarefa }} de {{ nome }} conlu&iacute;da com sucesso! {% endblock %}
+{% block title %}LocaFan - {{ tarefa }} de {{ nome }} conlu&iacute;d{{ genero }} com sucesso! {% endblock %}
 
 {% block content %}
 
-<h3>{{ tarefa }} do cadastro do(a) cliente:</h3>
+<h3>{{ tarefa }} do(a) cliente:</h3>
     
 <h2><q>{{ nome }}</q></h2>
     
-<h3>conlu&iacute;da com sucesso!</h3>
+<h3>conlu&iacute;d{{ genero }} com sucesso!</h3>
 
 <button onclick="location.assign('{% url home_index %}');" >OK</button>
 

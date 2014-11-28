@@ -37,13 +37,13 @@
 
 <p><b>(*) estes campos s&atilde;o opcionais</b></p>
 
-<p><a href="#" id="id_submit_form" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-newwin"></span>{{ tarefa }} Cliente</a></p>
+<p><a href="#" id="id_submit_form" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-newwin"></span>{{ botao }}</a></p>
 
 <div id="dialog" title="{{ tarefa }} Cliente">
     {% if nome %}
-        <p>Deseja mesmo {{ tarefa|lower }} o(a) cliente: {{ nome }} ?</p>
+        <p>Deseja mesmo {{ botao|lower }} o(a) cliente: {{ nome }} ?</p>
     {% else %}
-        <p>Deseja mesmo {{ tarefa|lower }} o(a) cliente ?</p>
+        <p>Deseja mesmo {{ botao|lower }} o(a) cliente ?</p>
     {% endif %}
 </div>
 
