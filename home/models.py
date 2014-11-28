@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.localflavor.br.br_states import STATE_CHOICES
-from django.template.defaultfilters import default
+#from django.template.defaultfilters import default
 
-class Clientes(models.Model):
+class Cliente(models.Model):
 
     nome = models.CharField(
         u'Nome',
@@ -20,12 +20,13 @@ class Clientes(models.Model):
     )
     cpf = models.CharField(
         u'CPF',
-        max_length=11,
+        max_length=14,
         unique=True,
     )
     cep = models.CharField(
         u'CEP',
-        max_length=8,
+        help_text=u'Ao inserir o CEP, os dados do endereço serão preenchidos automaticamente.\nCaso isso não ocorra os dados do endereço deverão ser preenchidos manualmente.',
+        max_length=9,
     )
     end = models.CharField(
         u'Endereço',
@@ -53,17 +54,17 @@ class Clientes(models.Model):
     )
     tel_fixo = models.CharField(
         u'Telefone Fixo',
-        max_length=10,
+        max_length=14,
         blank=True,
         null=True,
     )
     tel_cel = models.CharField(
         u'Telefone Celular',
-        max_length=10,
+        max_length=14,
     )
     tel_trab = models.CharField(
         u'Telefone do Trabalho',
-        max_length=10,
+        max_length=14,
         blank=True,
         null=True,
     )
@@ -76,7 +77,7 @@ class Clientes(models.Model):
     multa = models.DecimalField(
         u'Multa',
         default=0.00,
-        max_digits=6,
+        max_digits=8,
         decimal_places=2,
     )
 
@@ -87,32 +88,7 @@ class Clientes(models.Model):
             self.multa,
         )
 
-class Locacoes(models.Model):
-    
-    dt_locacao = models.DateField(
-        u'Data de Locação',
-    )
-    dt_devolucao = models.DateField(
-        u'Data de Devolução',
-    )
-    pg_realizado = models.FloatField(
-        u'Pagamento Realizado',
-    )
-    status = models.BooleanField(
-        u'Status da Locação',
-    )
-    cliente_id = models.ForeignKey(
-        Clientes,
-        unique = True,
-    )
-    
-    def __unicode__(self):
-        return 'DATA DE LOCAÇÃO: %s, DATA DE DEVOLUÇÃO: %s' % (
-            self.dt_locacao,
-            self.dt_devolucao,
-        )
-
-class Fantasias(models.Model):
+class Fantasia(models.Model):
 
     nome = models.CharField(
         u'Nome',
@@ -138,16 +114,6 @@ class Fantasias(models.Model):
     qtde_disponivel = models.IntegerField(
         u'Quantidade Disponível',
     )
-    locacao_id = models.ForeignKey(
-        Locacoes,
-        unique=True,
-    )
-    locacao_cliente_id = models.ForeignKey(
-        Locacoes,
-        unique=True,
-        related_name='locacao_cliente_id',
-        to_field='cliente_id',
-    )
 
     def __unicode__(self):
         return 'NOME: %s, TIPO: %s, TEMA: %s, DISPONIVEIS: %s' % (
@@ -156,3 +122,31 @@ class Fantasias(models.Model):
             self.tema,
             self.qtde_disponivel,
         )
+
+class Locacao(models.Model):
+
+    dt_locacao = models.DateField(
+        u'Data de Locação',
+    )
+    dt_devolucao = models.DateField(
+        u'Data de Devolução',
+    )
+    pg_realizado = models.DecimalField(
+        u'Pagamento Realizado',
+        max_digits=8,
+        decimal_places=2,
+    )
+    status = models.BooleanField(
+        u'Status da Locação',
+    )
+    cliente = models.ForeignKey( Cliente )
+    fantasias = models.ManyToManyField( Fantasia )
+
+    def __unicode__(self):
+        nome_cliente=Cliente.objects.get(id=self.cliente).nome
+        return 'CLIENTE: %s, DATA DE LOCAÇÃO: %s, DATA DE DEVOLUÇÃO: %s' % (
+            nome_cliente,
+            self.dt_locacao,
+            self.dt_devolucao,
+        )
+
