@@ -1,4 +1,6 @@
-*.py[cod]
+*.pyc
+*.pyo
+*.pyd
 *.so
 .*.swp
 settings_local.py
