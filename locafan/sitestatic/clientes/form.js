@@ -10,7 +10,7 @@ function exec_mascara(){
 
 function mascara_nome(v){
     // Retira tudo o que nao eh letra do campo nome
-    re = /[^A-Za-zÁÀÄÃÉÈËẼÍÌÏĨÓÒÖÕÚÙÜŨÝỲŸỸẂẀẄÇáàäãéèëẽíìïĩóòöõúùüũýỳÿỹẃẁẅç ]/g;
+    re = /[^A-Za-zÁÀÄÃÂÉÈËẼÊÍÌÏĨÎÓÒÖÕÔÚÙÜŨÛÝỲŸỸŶẂẀẄŴÇáàäãâéèëẽêíìïĩîóòöõôúùüũûýỳÿỹŷẃẁẅŵç ]/g;
     v=v.replace(re,"");
     return v;
 }
@@ -29,14 +29,15 @@ function trim_js(str){
 }
 
 $(function(){
-    $('#id_dt_nascimento').mask('00/00/0000', {placeholder: '__/__/____'});
+    $('#id_dt_nascimento').mask('00/00/0000', {placeholder: 'dd/mm/aaaa'});
+    //$('#id_dt_nascimento').mask('00/00/0000');
     $('#id_cpf').mask('000.000.000-00', {placeholder: '___.___.___-__'});
     $('#id_cep').mask('00000-000', {placeholder: '_____-___'});
     $('#id_tel_fixo').mask('(00) 0000-0000', {placeholder: '(__) ____-____'});
     $('#id_tel_cel').mask('(00) 0000-0000', {placeholder: '(__) ____-____'});
     $('#id_tel_trab').mask('(00) 0000-0000', {placeholder: '(__) ____-____'});
     if ($('#id_multa').get(0))
-        $('#id_multa').mask('0000,00', {placeholder: '0000,00', reverse: true});
+        $('#id_multa').mask('000000,00', {placeholder: '0000,00', reverse: true});
 });
 
 $(document).ready(function(){
@@ -80,12 +81,12 @@ $(document).ready(function(){
         // executa mais um trim no campo nome
         var nome = $('#id_nome').val();
         $('#id_nome').val(trim_js(nome));
-        // unmask os campos com mascara que devem perder a mascara
+        /* unmask os campos com mascara que devem perder a mascara
         $('#id_cpf').unmask();
         $('#id_cep').unmask();
         $('#id_tel_fixo').unmask();
         $('#id_tel_cel').unmask();
-        $('#id_tel_trab').unmask();
+        $('#id_tel_trab').unmask();*/
         // tira a mascara do campo multa e coloca o caracter '.' no lugar certo de seu valor
         if ($('#id_multa').get(0)) {
             $('#id_multa').unmask();
@@ -106,4 +107,10 @@ $(document).ready(function(){
 	  $("#dialog").dialog("open");
       event.preventDefault();
     });  
+    // Hover states on the static widgets
+    $( "#id_submit_form" ).hover(
+        function() {
+            $( this ).addClass( "ui-state-hover" );
+        }
+    );
 });
