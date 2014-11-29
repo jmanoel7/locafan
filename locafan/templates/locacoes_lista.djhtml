@@ -1,0 +1,36 @@
+{% extends "base.djhtml" %}
+
+{% block title %}LocaFan - Listar Loca&ccedil;&otilde;es{% endblock %}
+
+{% block content %}
+
+<h3>Lista de loca&ccedil;&atilde;o cadastradas</h3>
+
+{% if locacoes %}
+  
+    <table>
+        <tr>
+            <th>DATA DE DEVOLU&Ccedil;&Otilde;O</th>
+            <th>DATA DE LOCA&Ccedil;&Otilde;</th>
+            <th>EXCLUS&Atilde;O</th>
+        </tr>
+
+    {% for locacao in locacoes %}
+
+        <tr>
+            <td><a href="{% url locacoes_editar_dt_devolucao locacao.dt_devolucao %}">{{ locacao.dt_devolucao }}</a></td>
+            <td>{{ locacao.dt_locacao }}</td>
+            <td><a href="{% url locacoes_excluir_dt_devolucao locacao.dt_devolucao %}">Excluir?</a></td>
+        </tr>
+
+    {% endfor %}
+
+    </table>
+
+{% else %}
+
+  <p>Ainda não temos nenhuma loca&ccedil;&atilde;o cadastrada.</p>
+
+{% endif %}
+
+{% endblock %}

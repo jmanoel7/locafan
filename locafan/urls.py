@@ -26,8 +26,10 @@ urlpatterns = patterns('',
     url(r'^fantasias/excluir/(?P<nome>.+)/$', 'fantasias.views.excluir_nome', name='fantasias_excluir_nome'),
     url(r'^locacoes/cadastrar/$', 'locacoes.views.cadastrar', name='locacoes_cadastrar'),
     url(r'^locacoes/editar/$', 'locacoes.views.editar', name='locacoes_editar'),
+    url(r'^locacoes/editar/(?P<dt_devolucao>.+)/$', 'locacoes.views.editar_dt_devolucao', name='locacoes_editar_dt_devolucao'),
     url(r'^locacoes/listar/$', 'locacoes.views.listar', name='locacoes_listar'),
     url(r'^locacoes/excluir/$', 'locacoes.views.excluir', name='locacoes_excluir'),
+    url(r'^locacoes/excluir/(?P<dt_devolucao>.+)/$', 'locacoes.views.excluir_dt_devolucao', name='locacoes_excluir_dt_devolucao'),
     url(r'^cep/', include('cep.urls')),
 )
 

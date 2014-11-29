@@ -1,6 +1,6 @@
 {% extends "base.djhtml" %}
 
-{% block title %}LocaFan - {{ tarefa }} Clientes{% endblock %}
+{% block title %}LocaFan - {{ tarefa }} Fantasias{% endblock %}
 
 {% block content %}
 

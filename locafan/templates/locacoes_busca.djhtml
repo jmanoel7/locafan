@@ -1,6 +1,6 @@
 {% extends "base.djhtml" %}
 
-{% block title %}LocaFan - Listar Loca&ccedil;&otilde;es{% endblock %}
+{% block title %}LocaFan - {{ tarefa }} Loca&ccedil;&otilde;es{% endblock %}
 
 {% block content %}
 
