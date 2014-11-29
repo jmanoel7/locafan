@@ -8,7 +8,6 @@ from home.models import Cliente
 
 class ClienteCadastrarForm(forms.ModelForm):
 
-
     class Meta:
         model = Cliente
         exclude = ('multa')

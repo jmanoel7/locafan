@@ -1,0 +1,50 @@
+{% extends "base.djhtml" %}
+
+{% block title %}LocaFan - {{ tarefa }} Fantasia{% if nome %} {{ nome }}{% endif %}{% endblock %}
+
+{% block head %}
+
+{% load static from staticfiles %}
+{{ form.media }}
+
+{% endblock head %}
+
+{% block content %}
+
+<h3>{{ tarefa }} Fantasia</h3>
+<form action="." method="post">{% csrf_token %}
+
+    {# Include the hidden fields #}
+    {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+    {% endfor %}
+
+    {# Include the visible fields #}
+    {% for field in form.visible_fields %}
+        <div id="p_{{ field.id_for_label }}" class="field_wrapper">
+        <!-- p class="p_help">
+            <span class="filed_help_message"> field.help_text </span>
+        </p -->
+        <p class="p_input">
+            <span class="label-text">{{ field.label_tag }}: </span><span class="input-text" title="{{ field.help_text }}">{{ field }}</span>
+        </p>
+        <p class="p_error">
+            <span class="field_error_message">{{ field.errors|striptags }}</span>
+        </p>
+        </div>
+    {% endfor %}
+</form>
+
+<!-- p><b>(*) estes campos s&atilde;o opcionais</b></p -->
+
+<p><a href="#" id="id_submit_form" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-newwin"></span>{{ botao }}</a></p>
+
+<div id="dialog" title="{{ tarefa }} Fantasia">
+    {% if nome %}
+        <p>Deseja mesmo {{ botao|lower }} a fantasia: {{ nome }} ?</p>
+    {% else %}
+        <p>Deseja mesmo {{ botao|lower }} a fantasia ?</p>
+    {% endif %}
+</div>
+
+{% endblock %}
