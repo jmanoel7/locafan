@@ -10,12 +10,10 @@ Execute em um terminal de qualquer distribuição GNU/Linux baseada em Debian Wh
     git clone https://github.com/jmanoel7/locafan.git
     cd locafan/scripts
     ./install-deps.sh
-    sudo service mysql start
-    mysql -h localhost -u root -p -B -r < create_schema_and_user.sql
-    sudo service mysql restart
     ./install-venv.sh
     cd ..
     source ~/.local/venvs/locafan/bin/activate
+    python manage.py syncdb
     python manage.py runserver
 
 Se deu tudo certo, abra agora um web browser no endereço:
