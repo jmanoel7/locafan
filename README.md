@@ -22,6 +22,7 @@ Se deu tudo certo, abra agora um web browser no endereço:
 
 ## TODO:
 =======
-* Terminar a APP: 'clientes'
-* Desenvovler as APPs: 'fantasias' e 'locacoes'
-* Customizar com JQuery-UI o site LocaFan
+* Implementar as validações das regras de negócios
+* Implementar a busca nas apps: 'clientes', 'fantasias' e 'locacoes'
+* Terminar de customizar o projeto locafan
+
