@@ -11,40 +11,56 @@
 
 {% block content %}
 
-<h3>{{ tarefa }} Cliente</h3>
+<div id='id_tab_clientes'>
+
+<fieldset id='id_form'>
+<legend>{{ tarefa }} Cliente</legend>
+
 <form action="." method="post">{% csrf_token %}
-
     {# Include the hidden fields #}
-    {% for hidden in form.hidden_fields %}
-        {{ hidden }}
-    {% endfor %}
-
+    {# % for hidden in form.hidden_fields % #}
+        {# { hidden } #}
+    {# % endfor % #}
     {# Include the visible fields #}
     {% for field in form.visible_fields %}
         <div id="p_{{ field.id_for_label }}" class="field_wrapper">
-        <!-- p class="p_help">
-            <span class="filed_help_message"> field.help_text </span>
-        </p -->
-        <p class="p_input">
-            <span class="label-text">{{ field.label_tag }}: </span><span class="input-text" title="{{ field.help_text }}">{{ field }}</span>
-        </p>
         <p class="p_error">
-            <span class="field_error_message">{{ field.errors|striptags }}</span>
+            <span class="field_error_message">{% if field.errors %}{{ field.errors|striptags }}{% endif %}<span>
+        </p>
+        <p class="p_input">
+            <span class="label-text">{{ field.label_tag }}: </span><span class="input-text">{{ field }}</span>{% if field.help_text %}<span title="{{ field.help_text }}" class="ui-icon ui-icon-info"></span>{% else %}<span class='info-text'></span>{% endif %}
         </p>
         </div>
     {% endfor %}
 </form>
 
-<p><b>(*) estes campos s&atilde;o opcionais</b></p>
+<p id="p_help_form">(*) estes campos s&atilde;o opcionais</p>
 
-<p><a href="#" id="id_submit_form" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-newwin"></span>{{ botao }}</a></p>
+<p id="p_submit_form"><a href="#" id="id_submit_form" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-newwin"></span>{{ botao }} Dados</a></p>
 
 <div id="dialog" title="{{ tarefa }} Cliente">
     {% if nome %}
-        <p>Deseja mesmo {{ botao|lower }} o(a) cliente: {{ nome }} ?</p>
+    <p>Deseja mesmo {{ botao|lower }} os dados do(a) cliente: <q>{{ nome }}</q> ?</p>
     {% else %}
-        <p>Deseja mesmo {{ botao|lower }} o(a) cliente ?</p>
+        <p>Deseja mesmo {{ botao|lower }} os dados do(a) cliente ?</p>
     {% endif %}
 </div>
+
+</fieldset>
+
+</div>
+
+<script type="text/javascript" charset="utf-8">
+$(function(){
+    // Exibir o icone de alerta em caso de erro:
+    errors = document.getElementsByClassName("field_error_message");
+    for (i=0; i<errors.length; i++) {
+        re = /^<span>\s*<\/span>$/;
+        errors[i].innerHTML=errors[i].innerHTML.replace(re,"");
+        if (errors[i].innerHTML.length > 0)
+            $("<div class='ui-state-error ui-corner-all'><span class='ui-icon ui-icon-alert'></span></div>").insertBefore(errors[i]);
+    }
+});
+</script>
 
 {% endblock %}

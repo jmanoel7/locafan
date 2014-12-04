@@ -1,3 +1,0 @@
-DROP SCHEMA `locafan`;
-CREATE SCHEMA `locafan` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-COMMIT;

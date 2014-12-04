@@ -1,3 +1,64 @@
+legend {
+    font-weight: bold;
+    font-style: oblique;
+    font-size: 20px;
+}
+#id_form {
+    width: 486px;
+    padding: 10px;
+    border: 5px solid gray;
+    margin: 10px;
+    position: relative;
+}
+div.field_wrapper {
+    width: 430px;
+    padding: 10px;
+    border: 5px solid gray;
+    margin: 10px;
+}
+span.ui-icon-alert {
+    left: 5px;
+    top: 3px;
+    position: relative;
+}
+span.field_error_message {
+    left: 26px;
+    bottom: 21px;
+    position: relative;
+    color: #cd0a0a;
+    font-weight: bold;
+    font-size: 14px;
+}
+div.ui-state-error {
+    padding-bottom: 5px;
+}
+p.p_input span.ui-icon {
+    left: 440px;
+    margin-top: -14px;
+    position: absolute;
+    cursor: pointer;
+}
+p.p_input span.label-text {
+    width: 200px;
+    height: auto;
+    left: 40px;
+    margin-top: -18px;
+    position: absolute;
+}
+p.p_input span.input-text {
+    width: 200px;
+    height: auto;
+    left: 245px;
+    margin-top: -18px;
+    position: absolute;
+}
+p.p_input span.info-text {
+    width: 16px;
+    height: auto;
+    left: 440px;
+    margin-top: -18px;
+    position: absolute;
+}
 #id_submit_form {
     padding: .4em 1em .4em 20px;
     text-decoration: none;
@@ -9,4 +70,12 @@
     left: .2em;
     top: 50%;
     margin-top: -8px;
+}
+#p_help_form, #p_submit_form {
+    margin-left: 10px;
+}
+#p_help_form {
+    font-weight: bold;
+    font-style: italic;
+    font-size: 16px;
 }

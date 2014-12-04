@@ -5,10 +5,19 @@ from django.contrib.localflavor.br.br_states import STATE_CHOICES
 
 class Cliente(models.Model):
 
+    SEXO_CHOICES = (
+        ('M', 'Masculino'),
+        ('F', 'Feminino'),
+    )
     nome = models.CharField(
         u'Nome',
         max_length=100,
         unique=True,
+    )
+    sexo = models.CharField(
+        u'Sexo',
+        max_length=1,
+        choices=SEXO_CHOICES,
     )
     dt_nascimento = models.DateField(
         u'Data de Nascimento',
@@ -20,20 +29,20 @@ class Cliente(models.Model):
     )
     cpf = models.CharField(
         u'CPF',
-        max_length=14,
+        max_length=11,
         unique=True,
     )
     cep = models.CharField(
         u'CEP',
         help_text=u'Ao inserir o CEP, os dados do endereço serão preenchidos automaticamente.\nCaso isso não ocorra os dados do endereço deverão ser preenchidos manualmente.',
-        max_length=9,
+        max_length=8,
     )
     end = models.CharField(
         u'Endereço',
         max_length=100,
     )
     end_comp = models.CharField(
-        u'Complemento',
+        u'* Complemento',
         max_length=100,
         blank=True,
         null=True,
@@ -53,23 +62,23 @@ class Cliente(models.Model):
         default='GO',
     )
     tel_fixo = models.CharField(
-        u'Telefone Fixo',
-        max_length=14,
+        u'* Telefone Fixo',
+        max_length=10,
         blank=True,
         null=True,
     )
     tel_cel = models.CharField(
         u'Telefone Celular',
-        max_length=14,
+        max_length=10,
     )
     tel_trab = models.CharField(
-        u'Telefone do Trabalho',
-        max_length=14,
+        u'* Telefone do Trabalho',
+        max_length=10,
         blank=True,
         null=True,
     )
     email = models.EmailField(
-        u'Email',
+        u'* Email',
         max_length=100,
         blank=True,
         null=True,
@@ -79,6 +88,10 @@ class Cliente(models.Model):
         default=0.00,
         max_digits=8,
         decimal_places=2,
+    )
+    tem_locacao = models.BooleanField(
+        u'Possui locação em aberto?',
+        default=False,
     )
 
     def __unicode__(self):
@@ -90,13 +103,21 @@ class Cliente(models.Model):
 
 class Fantasia(models.Model):
 
+    TIPOS_DE_FANTASIAS = (
+        ('IF', 'Infantil Masculino'),
+        ('IM', 'Infantil Feminino'),
+        ('AF', 'Adulto Feminino'),
+        ('AM', 'Adulto Masculino'),
+        ('CS', 'Casal'),
+    )
     nome = models.CharField(
         u'Nome',
         max_length=50,
     )
     tipo = models.CharField(
         u'Tipo',
-        max_length=50,
+        max_length=2,
+        choices=TIPOS_DE_FANTASIAS,
     )
     tema = models.CharField(
         u'Tema',
@@ -143,9 +164,8 @@ class Locacao(models.Model):
     fantasias = models.ManyToManyField( Fantasia )
 
     def __unicode__(self):
-        nome_cliente=Cliente.objects.get(id=self.cliente).nome
-        return 'CLIENTE: %s, DATA DE LOCAÇÃO: %s, DATA DE DEVOLUÇÃO: %s' % (
-            nome_cliente,
+        return u'CLIENTE: %s, DATA DE LOCAÇÃO: %s, DATA DE DEVOLUÇÃO: %s' % (
+            self.cliente,
             self.dt_locacao,
             self.dt_devolucao,
         )

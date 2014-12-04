@@ -8,9 +8,64 @@ from home.models import Cliente
 
 class ClienteCadastrarForm(forms.ModelForm):
 
+    cpf = forms.CharField(
+        label=u'CPF',
+        max_length=14,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': '___.___.___-__',
+            },
+        ),
+    )
+    cep = forms.CharField(
+        label=u'CEP',
+        max_length=9,
+        help_text=u'Ao inserir o CEP, os dados do endereço serão preenchidos automaticamente.\nCaso isso não ocorra os dados do endereço deverão ser preenchidos manualmente.',
+        widget=CEPInput(
+            address={
+                'street':   'id_end',
+                'district': 'id_bairro',
+                'city':     'id_cidade',
+                'state':    'id_uf',
+            },
+            attrs={
+                'placeholder': '_____-___',
+            },
+        ),
+    )
+    tel_fixo = forms.CharField(
+        label=u'* Telefone Fixo',
+        required=False,
+        max_length=14,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': '(__) ____-____',
+            },
+        ),
+    )
+    tel_cel = forms.CharField(
+        label=u'Telefone Celular',
+        max_length=14,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': '(__) ____-____',
+            },
+        ),
+    )
+    tel_trab = forms.CharField(
+        label=u'* Telefone do Trabalho',
+        required=False,
+        max_length=14,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': '(__) ____-____',
+            },
+        ),
+    )
+
     class Meta:
         model = Cliente
-        exclude = ('multa')
+        exclude = ('multa','tem_locacao',)
         widgets = {
             'nome': TextInput(
                 attrs={
@@ -29,24 +84,6 @@ class ClienteCadastrarForm(forms.ModelForm):
                 attrs={
                     'placeholder': 'Digite o RG',
                     'onblur':      'this.value=trim_js(this.value)',
-                },
-            ),
-            'cpf': TextInput(
-                attrs={
-                    'placeholder': '___.___.___-__',
-                    'maxlength': '14',
-                },
-            ),
-            'cep': CEPInput(
-                address={
-                    'street':   'id_end',
-                    'district': 'id_bairro',
-                    'city':     'id_cidade',
-                    'state':    'id_uf',
-                },
-                attrs={
-                    'placeholder': '_____-___',
-                    'maxlength': '9',
                 },
             ),
             'end': TextInput(
@@ -71,24 +108,6 @@ class ClienteCadastrarForm(forms.ModelForm):
                 attrs={
                     'placeholder': 'Digite a cidade',
                     'onblur':      'this.value=trim_js(this.value)',
-                },
-            ),
-            'tel_fixo': TextInput(
-                attrs={
-                    'placeholder': '(__) ____-____',
-                    'maxlength': '14',
-                },
-            ),
-            'tel_cel': TextInput(
-                attrs={
-                    'placeholder': '(__) ____-____',
-                    'maxlength': '14',
-                },
-            ),
-            'tel_trab': TextInput(
-                attrs={
-                    'placeholder': '(__) ____-____',
-                    'maxlength': '14',
                 },
             ),
             'email': TextInput(
@@ -103,118 +122,28 @@ class ClienteCadastrarForm(forms.ModelForm):
          css = {
              'all': ('site/clientes/form.css',)
          }
-         js = ('site/clientes/form.js', 'site/jquery-mask/jquery.mask.min.js',)
+         js = (
+             'site/clientes/form.js',
+             'site/jquery-mask/jquery.mask.min.js',
+         )
 
 
-class ClienteEditarForm(forms.ModelForm):
+class ClienteEditarForm(ClienteCadastrarForm):
 
-    class Meta:
-        model = Cliente
+    class Meta(ClienteCadastrarForm.Meta):
+        exclude = ('tem_locacao',)
         widgets = {
-            'nome': TextInput(
-                attrs={
-                    'placeholder': 'Digite o nome',
-                    'onkeypress':  'mascara(this,mascara_nome)',
-                    'onblur':      'this.value=trim_js(this.value)',
-                },
-            ),
-            'dt_nascimento': DateInput(
-                attrs={
-                    'placeholder': 'dd/mm/aaaa',
-                    'maxlength':   '10',
-                },
-            ),
-            'rg': TextInput(
-                attrs={
-                    'placeholder': 'Digite o RG',
-                    'onblur':      'this.value=trim_js(this.value)',
-                },
-            ),
-            'cpf': TextInput(
-                attrs={
-                    'placeholder': '___.___.___-__',
-                    'maxlength': '14',
-                },
-            ),
-            'cep': CEPInput(
-                address={
-                    'street':   'id_end',
-                    'district': 'id_bairro',
-                    'city':     'id_cidade',
-                    'state':    'id_uf',
-                },
-                attrs={
-                    'placeholder': '_____-___',
-                    'maxlength': '9',
-                },
-            ),
-            'end': TextInput(
-                attrs={
-                    'placeholder': 'Digite o endereço',
-                    'onblur':      'this.value=trim_js(this.value)',
-                },
-            ),
-            'end_comp': TextInput(
-                attrs={
-                    'placeholder': 'Digite o complemento',
-                    'onblur':      'this.value=trim_js(this.value)',
-                },
-            ),
-            'bairro': TextInput(
-                attrs={
-                    'placeholder': 'Digite o bairro',
-                    'onblur':      'this.value=trim_js(this.value)',
-                },
-            ),
-            'cidade': TextInput(
-                attrs={
-                    'placeholder': 'Digite a cidade',
-                    'onblur':      'this.value=trim_js(this.value)',
-                },
-            ),
-            'tel_fixo': TextInput(
-                attrs={
-                    'placeholder': '(__) ____-____',
-                    'maxlength': '14',
-                },
-            ),
-            'tel_cel': TextInput(
-                attrs={
-                    'placeholder': '(__) ____-____',
-                    'maxlength': '14',
-                },
-            ),
-            'tel_trab': TextInput(
-                attrs={
-                    'placeholder': '(__) ____-____',
-                    'maxlength': '14',
-                },
-            ),
-            'email': TextInput(
-                attrs={
-                    'placeholder': 'Digite o email',
-                    'onblur':      'this.value=trim_js(this.value)',
-                },
-            ),
             'multa': TextInput(
                 attrs={
-                    'placeholder': '000000,00',
-                    'maxlength': '9',
+                    'placeholder': '000.000,00',
+                    'maxlength': '10',
                 },
             ),
         }
 
-    class Media:
-         css = {
-             'all': ('site/clientes/form.css',)
-         }
-         js = ('site/clientes/form.js', 'site/jquery-mask/jquery.mask.min.js',)
+class ClienteExcluirForm(ClienteEditarForm):
 
-
-class ClienteExcluirForm(forms.ModelForm):
-
-    class Meta:
-        model = Cliente
+    class Meta(ClienteEditarForm.Meta):
         widgets = {
             'nome': TextInput(
                 attrs={
@@ -308,16 +237,8 @@ class ClienteExcluirForm(forms.ModelForm):
             ),
             'multa': TextInput(
                 attrs={
-                    'class': 'input_multa',
-                    'max_length': '7',
-                    'readonly': 'true'
+                    'readonly': 'true',
                 }
             ),
         }
-
-    class Media:
-         css = {
-             'all': ('site/clientes/form.css',)
-         }
-         js = ('site/clientes/form.js', 'site/jquery-mask/jquery.mask.min.js',)
 
