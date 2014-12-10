@@ -22,7 +22,6 @@ Se deu tudo certo, abra agora um web browser no endereço:
 
 ## TODO:
 =======
-* Implementar as validações das regras de negócios
-* Implementar a busca nas apps: 'clientes', 'fantasias' e 'locacoes'
+* Terminar de implementar as validações das regras de negócios
 * Terminar de customizar o projeto locafan
 
