@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}LocaFan - Home{% endblock %}
+
+{% block head %}
+
+{% load static from staticfiles %}
+<link rel="stylesheet" media="screen" href="{% static 'site/myscripts/home_index.css' %}">
+<script type="text/javascript" charset="utf-8">//<![CDATA[
+$(document).ready(function(){
+    $("#id_tabs").tabs();
+    $(".button").button();
+    $("#id_btn_cadastrar_cliente").click(function(){
+        location.assign("{% url clientes_cadastrar %}");
+    });
+    $("#id_btn_buscar_cliente_nome").click(function(){
+        location.assign("{% url clientes_buscar_nome %}");
+    });
+    $("#id_btn_buscar_cliente_cpf").click(function(){
+        location.assign("{% url clientes_buscar_cpf %}");
+    });
+    $("#id_btn_listar_clientes").click(function(){
+        location.assign("{% url clientes_listar %}");
+    });
+    $("#id_btn_cadastrar_fantasia").click(function(){
+        location.assign("{% url fantasias_cadastrar %}");
+    });
+    $("#id_btn_listar_fantasias").click(function(){
+        location.assign("{% url fantasias_listar %}");
+    });
+    $("#id_btn_cadastrar_locacao").click(function(){
+        location.assign("{% url locacoes_cadastrar %}");
+    });
+    $("#id_btn_listar_locacoes").click(function(){
+        location.assign("{% url locacoes_listar %}");
+    });
+});
+//]]>
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+<div id="id_cabecalho">
+    <h1 id="id_cabecalho_h1">LocaFan - Sistema para Loca&ccedil;&atilde;o de Fantasias</h1>
+</div>
+
+<div id="id_tabs">
+    <ul>
+        <li><a href="#id_tab_clientes">Clientes</a></li>
+        <li><a href="#id_tab_fantasias">Fantasias</a></li>
+        <li><a href="#id_tab_locacoes">Loca&ccedil;&otilde;es</a></li>
+    </ul>
+    <div id="id_tab_clientes">
+        <ul class="opcoes">
+            <li>
+                <button id="id_btn_cadastrar_cliente" class="button">
+                    Cadastrar Cliente
+                </button>
+            </li>
+            <li>
+                <button id="id_btn_buscar_cliente_nome" class="button">
+                    Buscar Cliente pelo Nome
+                </button>
+            </li>
+            <li>
+                <button id="id_btn_buscar_cliente_cpf" class="button">
+                    Buscar Cliente pelo CPF
+                </button>
+            </li>
+            <li>
+                <button id="id_btn_listar_clientes" class="button">
+                    Listar Todos os Clientes
+                </button>
+            </li>
+        </ul>
+    </div>
+    <div id="id_tab_fantasias">
+        <ul class="opcoes">
+            <li>
+                <button id="id_btn_cadastrar_fantasia" class="button">
+                    Cadastrar Fantasia
+                </button>
+            </li>
+            <li>
+                <button id="id_btn_listar_fantasias" class="button">
+                    Listar Todas as Fantasias
+                </button>
+            </li>
+        </ul>
+    </div>
+    <div id="id_tab_locacoes">
+        <ul class="opcoes">
+            <li>
+                <button id="id_btn_cadastrar_locacao" class="button">
+                    Cadastrar Loca&ccedil;&atilde;o
+                </button>
+            </li>
+            <li>
+                <button id="id_btn_listar_locacoes" class="button">
+                    Listar Todas as Loca&ccedil;&otilde;es
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

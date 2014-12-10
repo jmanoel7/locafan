@@ -13,14 +13,14 @@ def cadastrar(request):
         form = LocacaoCadastrarForm(request.POST)
         if form.is_valid():
             nova_locacao = form.save()
-            return render(request, 'locacoes_form_ok.djhtml', {
+            return render(request, 'locacoes_form_ok.html', {
                 'tarefa': u'Cadastro',
                 'dt_devolucao': nova_locacao.dt_devolucao,
                 'genero': 'o',
             })
     else:
         form = LocacaoCadastrarForm()
-    return render(request, 'locacoes_form.djhtml', {
+    return render(request, 'locacoes_form.html', {
         'form': form,
         'tarefa': 'Cadastrar',
         'botao': 'Cadastrar',
@@ -28,7 +28,7 @@ def cadastrar(request):
 
 def editar(request):
 
-    return render(request, 'locacoes_busca.djhtml', {'tarefa': 'Editar'})
+    return render(request, 'locacoes_busca.html', {'tarefa': 'Editar'})
 
 def editar_dt_devolucao(request, dt_devolucao):
     locacao = get_object_or_404(Locacao, dt_devolucao=dt_devolucao)
@@ -36,14 +36,14 @@ def editar_dt_devolucao(request, dt_devolucao):
         form = LocacaoEditarForm(request.POST, instance=locacao)
         if form.is_valid():
             nova_locacao = form.save()
-            return render(request, 'locacoes_form_ok.djhtml', {
+            return render(request, 'locacoes_form_ok.html', {
                 'tarefa': u'Edição',
                 'dt_devolucao': nova_locacao.dt_devolucao,
                 'genero': 'a',
             })
     else:
         form = LocacaoEditarForm(instance=locacao)
-    return render(request, 'locacoes_form.djhtml', {
+    return render(request, 'locacoes_form.html', {
         'form': form,
         'dt_devolucao': dt_devolucao,
         'tarefa': 'Editar',
@@ -54,11 +54,11 @@ def listar(request):
 
     locacoes = Locacao.objects.all()
     #nome_cliente=Cliente.objects.get(id=locacoes.cliente_id).nome
-    return render(request, 'locacoes_lista.djhtml', {'locacoes': locacoes})
+    return render(request, 'locacoes_lista.html', {'locacoes': locacoes})
 
 def excluir(request):
 
-    return render(request, 'locacoes_busca.djhtml', {'tarefa': 'Excluir'})
+    return render(request, 'locacoes_busca.html', {'tarefa': 'Excluir'})
 
 def excluir_dt_devolucao(request, dt_devolucao):
     """Da a opcao de excluir o cliente cujo dt_devolucao = dt_devolucao. Senao existir tal cliente, eh mostrado um erro http 404.
@@ -71,14 +71,14 @@ def excluir_dt_devolucao(request, dt_devolucao):
     locacao = get_object_or_404(Locacao, dt_devolucao=dt_devolucao)
     if request.method == 'POST':
         locacao.delete()
-        return render(request, 'locacoes_form_ok.djhtml', {
+        return render(request, 'locacoes_form_ok.html', {
             'tarefa': u'Exclusão',
             'dt_devolucao': dt_devolucao,
             'genero': 'a',
         })
     else:
         form = LocacaoExcluirForm(instance=locacao)
-        return render(request, 'locacoes_form.djhtml', {
+        return render(request, 'locacoes_form.html', {
             'form': form,
             'dt_devolucao': dt_devolucao,
             'tarefa': 'Excluir',

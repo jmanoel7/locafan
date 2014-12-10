@@ -1,6 +1,6 @@
-{% extends "base.djhtml" %}
+{% extends "base.html" %}
 
-{% block title %}LocaFan - Listar Clientes{% endblock %}
+{% block title %}LocaFan - Listar Fantasias{% endblock %}
 
 {% block head %}
 
@@ -13,106 +13,67 @@
 {% endblock head %}
 
 {% block content %}
+{% ifchanged  %}  {% endifchanged %}{% ifchanged fantasia.tipo %}  {% endifchanged %}
+<div id='id_fantasias_app'>
 
-<div id='id_clientes_app'>
-<h3>Lista de clientes cadastrados</h3>
+<h3>Lista de fantasias cadastradas</h3>
 
-{% if clientes %}
-  
-<div id='id_table_clientes'>
+{% if fantasias %}
 
-    <table class="tablesorter">
+    <div id='id_fantasias_table'>
+    <table>
         <thead>
             <tr>
-                <th class='sort'>Nome</th>
-                <th class='sort'>CPF</th>
-                <th class='sort'>Multa</th>
-                <th>Exclus&atilde;o</th>
+                <th>NOME</th>
+                <th>TIPO</th>
+                <th>TEMA</th>
+                <th>QUANTIDADE TOTAL</th>
+                <th>QUANTIDADE DISPONIVEL</th>
+                <th>EXCLUS&Atilde;O</th>
             </tr>
         </thead>
         <tbody>
-    
-{% for cliente in clientes %}
-
+    {% for fantasia in fantasias %}
             <tr>
-                <td><a href='{% url clientes_editar_nome cliente.nome %}'>{{ cliente.nome }}</a></td>
-                <td class='cpf'>{{ cliente.cpf }}</td>
-                <td class='multa'>{{ cliente.multa }}</td>
-                <td><a href='{% url clientes_excluir_nome cliente.nome %}'>Excluir?</a></td>
+                <td><a href="{% url fantasias_editar_nome fantasia.nome %}">{{ fantasia.nome }}</a></td>
+                <td>
+                {% if fantasia.tipo == "IM" %}
+                    Infantil Masculino
+                {% elif fantasia.tipo == "IF" %}
+                    Infantil Feminino
+                {% elif fantasia.tipo == "AM" %}
+                    Adulto Masculino
+                {% elif fantasia.tipo == "AF" %}
+                    Adulto Feminino
+                {% elif fantasia.tipo == "CS" %}
+                    Casal
+                {% endif %}
+                </td>
+                <td>{{ fantasia.tema }}</td>
+                <td>{{ fantasia.qtde_total }}</td>
+                <td>{{ fantasia.qtde_disponivel }}</td>
+                <td>
+                {% if fantasia.qtde_disponivel == fantasia.qtde_total %}
+                    <a href="{% url fantasias_excluir_nome fantasia.nome %}">Excluir?</a>
+                {% else %}
+                    --
+                {% endif %}
+                </td>
             </tr>
-
-{% endfor %}
-
+    {% endfor %}
         </tbody>
     </table>
-</div>
+    </div>
 
 {% else %}
 
-  <p>Ainda n&atilde;o temos nenhum cliente cadastrado.</p>
+  <p>Ainda não temos nenhuma fantasia cadastrada.</p>
 
 {% endif %}
 
 </div>
 
 <script type="text/javascript" charset="utf-8">//<![CDATA[
-
-function mascara_cpf(cpf)
-{
-    //Remove tudo o que não é dígito
-    re = /\D/g;
-    cpf=cpf.replace(re,"");
-
-    //Coloca um ponto depois dos 3 primeiros dígitos
-    re = /^(\d{3})(\d)/;
-    cpf=cpf.replace(re,"$1.$2");
-
-    //Coloca um ponto depois dos 6 primeiros dígitos
-    re = /^(\d{3})\.(\d{3})(\d)/;
-    cpf=cpf.replace(re,"$1.$2.$3");
-
-    //Coloca um traço depois dos 9 primeiros dígitos
-    re = /^(\d{3})\.(\d{3})\.(\d{3})(\d)/;
-    cpf=cpf.replace(re,"$1.$2.$3-$4");
-
-    return cpf;
-}
-
-function mascara_multa(multa)
-{
-    //Remove tudo o que não é dígito
-    re = /\D/g;
-    multa=multa.replace(re,"");
-
-    //Coloca uma virgula antes dos 2 ultimos dígitos
-    re = /(\d)(\d{2})$/;
-    multa=multa.replace(re,"$1,$2");
-
-    //Coloca um ponto depois dos 5 ultimos dígitos
-    re = /(\d)(\d{3}),(\d{2})$/;
-    multa=multa.replace(re,"$1.$2,$3");
-
-    return multa;
-}
-
-$(function(){
-
-    // variavel de indice dos elementos
-    var i;
-
-    // Exibir os CPFs com mascara:
-    cpf = document.getElementsByClassName("cpf");
-    for (i=0; i<cpf.length; i++) {
-        cpf[i].innerHTML = mascara_cpf(cpf[i].innerHTML)
-    }
-
-    // Exibir as Multas com mascara:
-    multa = document.getElementsByClassName("multa");
-    for (i=0; i<multa.length; i++) {
-        multa[i].innerHTML = mascara_multa(multa[i].innerHTML)
-    }
-
-});
 
 $('table').tablesorter({
 
@@ -160,7 +121,7 @@ $('table').tablesorter({
     sortResetKey: 'ctrlKey',
 
     // false for German "1.234.567,89" or French "1 234 567,89"
-    usNumberFormat: true,
+    usNumberFormat: false,
 
     // If true, parsing of all table cell data will be delayed
     // until the user initializes a sort
@@ -181,13 +142,19 @@ $('table').tablesorter({
             sorter: "text"
         },
         1: {
-            sorter: "digit"
+            sorter: "text"
         },
         2: {
             sorter: "text"
         },
         3: {
-            sorter: "url"
+            sorter: "digit"
+        },
+        4: {
+            sorter: "digit"
+        },
+        5: {
+            sorter: false
         }
     },
 
@@ -201,7 +168,10 @@ $('table').tablesorter({
     sortList: [
         [0, 0],
         [1, 0],
-        [2, 0]
+        [2, 0],
+        [3, 0],
+        [4, 0],
+        [5, 0]
     ],
     // default sort that is added to the end of the users sort
     // selection.
@@ -229,14 +199,14 @@ $('table').tablesorter({
 
     // extract text from the table - this is how is
     // it done by default
-    textExtraction: {
+    /* textExtraction: {
         0: function (node) {
             return $(node).text();
         },
         1: function (node) {
             return $(node).text();
         }
-    },
+    }, */
 
     // use custom text sorter
     // function(a,b){ return a.sort(b); } // basic sort
@@ -373,7 +343,7 @@ $('table').tablesorter({
 
     // jQuery selector of content within selectorHeaders
     // that is clickable to trigger a sort.
-    selectorSort: "th.sort, td.sort",
+    selectorSort: "th, td",
 
     // rows with this class name will be removed automatically
     // before updating the table cache - used by "update",
@@ -386,23 +356,23 @@ $('table').tablesorter({
 
 });
 
-// Extend the themes to change any of the default class names ** NEW ** 
+// Extend the themes to change any of the default class names ** NEW **
 $.extend($.tablesorter.themes.jui, {
-    // change default jQuery uitheme icons - find the full list of icons 
-    // here: http://jqueryui.com/themeroller/ (hover over them for their name) 
-    table: 'ui-widget ui-widget-content ui-corner-all', // table classes 
-    header: 'ui-widget-header ui-corner-all ui-state-default', // header classes 
+    // change default jQuery uitheme icons - find the full list of icons
+    // here: http://jqueryui.com/themeroller/ (hover over them for their name)
+    table: 'ui-widget ui-widget-content ui-corner-all', // table classes
+    header: 'ui-widget-header ui-corner-all ui-state-default', // header classes
 	footerRow: '',
 	footerCells: '',
-    icons: 'ui-icon',    // icon class added to the <i> in the header 
+    icons: 'ui-icon',    // icon class added to the <i> in the header
     sortNone: 'ui-icon-carat-2-n-s',
     sortAsc: 'ui-icon-carat-1-n',
     sortDesc: 'ui-icon-carat-1-s',
-    active: 'ui-state-active', // applied when column is sorted 
-    hover: 'ui-state-hover', // hover class 
+    active: 'ui-state-active', // applied when column is sorted
+    hover: 'ui-state-hover', // hover class
     filterRow: '',
-    even: 'ui-widget-content', // even row zebra striping 
-    odd: 'ui-state-default' // odd row zebra striping 
+    even: 'ui-widget-content', // even row zebra striping
+    odd: 'ui-state-default' // odd row zebra striping
 });
 
 /*
@@ -424,7 +394,7 @@ $.extend($.tablesorter.themes.jui, {
     odd: '' // even row zebra striping
 });
 */
-//]]>  
+//]]>
 
 </script>
 

@@ -1,6 +1,6 @@
-{% extends "base.djhtml" %}
+{% extends "base.html" %}
 
-{% block title %}LocaFan - {{ tarefa }} Fantasia{% if nome %} {{ nome }}{% endif %}{% endblock %}
+{% block title %}LocaFan - {{ tarefa }} Loca&ccedil;&atilde;o{% if dt_devolucao %} {{ dt_devolucao }}{% endif %}{% endblock %}
 
 {% block head %}
 
@@ -11,7 +11,7 @@
 
 {% block content %}
 
-<h3>{{ tarefa }} Fantasia</h3>
+<h3>{{ tarefa }} Loca&ccedil;&atilde;o</h3>
 <form action="." method="post">{% csrf_token %}
 
     {# Include the hidden fields #}
@@ -39,11 +39,11 @@
 
 <p><a href="#" id="id_submit_form" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-newwin"></span>{{ botao }}</a></p>
 
-<div id="dialog" title="{{ tarefa }} Fantasia">
-    {% if nome %}
-        <p>Deseja mesmo {{ botao|lower }} a fantasia: {{ nome }} ?</p>
+<div id="dialog" title="{{ tarefa }} Loca&ccedil;&atilde;o">
+    {% if dt_devolucao %}
+        <p>Deseja mesmo {{ botao|lower }} a loca&ccedil;&atilde;o: {{ dt_devolucao }} ?</p>
     {% else %}
-        <p>Deseja mesmo {{ botao|lower }} a fantasia ?</p>
+        <p>Deseja mesmo {{ botao|lower }} a loca&ccedil;&atilde;o ?</p>
     {% endif %}
 </div>
 

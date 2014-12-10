@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.localflavor.br.br_states import STATE_CHOICES
 #from django.template.defaultfilters import default
 
+
 class Cliente(models.Model):
 
     SEXO_CHOICES = (
@@ -18,6 +19,7 @@ class Cliente(models.Model):
         u'Sexo',
         max_length=1,
         choices=SEXO_CHOICES,
+        default='M',
     )
     dt_nascimento = models.DateField(
         u'Data de Nascimento',
@@ -34,7 +36,9 @@ class Cliente(models.Model):
     )
     cep = models.CharField(
         u'CEP',
-        help_text=u'Ao inserir o CEP, os dados do endereço serão preenchidos automaticamente.\nCaso isso não ocorra os dados do endereço deverão ser preenchidos manualmente.',
+        help_text=u'Ao inserir o CEP, os dados do endereço serão preenchidos \
+            automaticamente.\nCaso isso não ocorra os dados do endereço \
+            deverão ser preenchidos manualmente.',
         max_length=8,
     )
     end = models.CharField(
@@ -95,17 +99,17 @@ class Cliente(models.Model):
     )
 
     def __unicode__(self):
-        return 'Nome: %s, CPF: %s, Multa: %s' % (
+        return 'Nome: %s, CPF: %s' % (
             self.nome,
             self.cpf,
-            self.multa,
         )
+
 
 class Fantasia(models.Model):
 
     TIPOS_DE_FANTASIAS = (
-        ('IF', 'Infantil Masculino'),
-        ('IM', 'Infantil Feminino'),
+        ('IM', 'Infantil Masculino'),
+        ('IF', 'Infantil Feminino'),
         ('AF', 'Adulto Feminino'),
         ('AM', 'Adulto Masculino'),
         ('CS', 'Casal'),
@@ -123,17 +127,25 @@ class Fantasia(models.Model):
         u'Tema',
         max_length=50,
     )
-    valor_fantasia = models.FloatField(
+    valor_fantasia = models.DecimalField(
         u'Valor da Fantasia',
+        default=0.00,
+        max_digits=8,
+        decimal_places=2,
     )
-    valor_locacao = models.FloatField(
+    valor_locacao = models.DecimalField(
         u'Valor da Locação',
+        default=0.00,
+        max_digits=8,
+        decimal_places=2,
     )
     qtde_total = models.IntegerField(
         u'Quantidade Total',
+        default=0,
     )
     qtde_disponivel = models.IntegerField(
         u'Quantidade Disponível',
+        default=0,
     )
 
     def __unicode__(self):
@@ -143,6 +155,7 @@ class Fantasia(models.Model):
             self.tema,
             self.qtde_disponivel,
         )
+
 
 class Locacao(models.Model):
 
@@ -154,14 +167,15 @@ class Locacao(models.Model):
     )
     pg_realizado = models.DecimalField(
         u'Pagamento Realizado',
+        default=0.00,
         max_digits=8,
         decimal_places=2,
     )
     status = models.BooleanField(
         u'Status da Locação',
     )
-    cliente = models.ForeignKey( Cliente )
-    fantasias = models.ManyToManyField( Fantasia )
+    cliente = models.ForeignKey(Cliente)
+    fantasias = models.ManyToManyField(Fantasia)
 
     def __unicode__(self):
         return u'CLIENTE: %s, DATA DE LOCAÇÃO: %s, DATA DE DEVOLUÇÃO: %s' % (
@@ -169,4 +183,3 @@ class Locacao(models.Model):
             self.dt_locacao,
             self.dt_devolucao,
         )
-

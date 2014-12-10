@@ -30,7 +30,6 @@ function trim_js(str){
 
 $(function(){
     $('#id_dt_nascimento').mask('00/00/0000', {placeholder: 'dd/mm/aaaa'});
-    //$('#id_dt_nascimento').mask('00/00/0000');
     $('#id_cpf').mask('000.000.000-00', {placeholder: '___.___.___-__'});
     $('#id_cep').mask('00000-000', {placeholder: '_____-___'});
     $('#id_tel_fixo').mask('(00) 0000-0000', {placeholder: '(__) ____-____'});
@@ -41,9 +40,16 @@ $(function(){
 });
 
 $(document).ready(function(){
-    $("span.ui-icon-info").click(function(){
-        alert($("span.ui-icon-info").attr("title"));
-    });
+    if ( $("#id_legend").text() != "Excluir Cliente" ) {
+        $("#id_sexo").chosen({
+            disable_search: true,
+            width: "89%"
+        });
+        $("#id_uf").chosen({
+            no_results_text: "Ops, Estado n&atilde;o encontrado!",
+            width: "89%"
+        });
+    }
     $(".zip-field").blur(function(){
         var arr;
         // validates CEP
@@ -57,6 +63,7 @@ $(document).ready(function(){
                 $("#"+address.district).val(arr.district);
                 $("#"+address.city).val(arr.city);
                 $("#"+address.state).val(arr.state);
+                $("#"+address.state).trigger("chosen:updated");
             });
         }
     });
@@ -68,7 +75,7 @@ $(document).ready(function(){
             {
                 text: "Ok",
                 click: function(){
-                    $("form").submit();
+                    $("#id_form").submit();
                     $(this).dialog("close");
                 }
             },
@@ -80,40 +87,52 @@ $(document).ready(function(){
             }
         ]
     });
-    $("form").submit(function(){
+    $("#id_form").submit(function(){
         // executa mais um trim no campo nome
-        var nome = $('#id_nome').val();
-        $('#id_nome').val(trim_js(nome));
+        if ($('#id_nome').get(0)) {
+            var nome = $('#id_nome').val();
+            $('#id_nome').val(trim_js(nome));
+        }
         // unmask os campos com mascara que devem perder a mascara
         $('#id_cpf').unmask();
         $('#id_cep').unmask();
         $('#id_tel_fixo').unmask();
         $('#id_tel_cel').unmask();
         $('#id_tel_trab').unmask();
-        // tira a mascara do campo multa e coloca o caracter '.' no lugar certo de seu valor
+        // se existir o campo multa, entao tira a mascara do campo 'multa'
+        // e coloca o caracter '.' no lugar certo do campo 'multa'
         if ($('#id_multa').get(0)) {
-            $('#id_multa').unmask();
-            var multa = $('#id_multa').val();
-            var temp = multa.split("");
-            temp[temp.length]   = temp[temp.length-1];
-            temp[temp.length-2] = temp[temp.length-3];
-            temp[temp.length-3] = ".";
-            var i=0;
-            multa="";
-            for ( i=0; i < temp.length; i++) {
-                multa = multa + temp[i];
-            }
-            $('#id_multa').val(multa);
+            if ($('#id_multa').val().indexOf(',') != -1) {
+                $('#id_multa').unmask();
+                var multa = $('#id_multa').val();
+                var temp = multa.split("");
+                temp[temp.length]   = temp[temp.length-1];
+                temp[temp.length-2] = temp[temp.length-3];
+                temp[temp.length-3] = ".";
+                var i=0;
+                multa="";
+                for ( i=0; i < temp.length; i++) {
+                    multa = multa + temp[i];
+                }
+                $('#id_multa').val(multa);
+            } else
+                $('#id_multa').unmask();
         }
     });
-    $("#id_submit_form").click(function(event){
+    $("#a_buscar").click(function(){
+        $("#id_form").submit();
+    });
+    $("#a_submit_form").click(function(event){
 	  $("#dialog").dialog("open");
       event.preventDefault();
     });
     // Hover states on the static widgets
-    $( "#id_submit_form" ).hover(
+    $( "#a_submit_form, #a_voltar, #a_buscar" ).hover(
         function() {
             $( this ).addClass( "ui-state-hover" );
+        },
+        function() {
+            $( this ).removeClass( "ui-state-hover" );
         }
     );
 });

@@ -1,9 +1,9 @@
-legend {
+#id_legend {
     font-weight: bold;
     font-style: oblique;
     font-size: 20px;
 }
-#id_form {
+#id_fieldset {
     width: 486px;
     padding: 10px;
     border: 5px solid gray;
@@ -36,7 +36,7 @@ p.p_input span.ui-icon {
     left: 440px;
     margin-top: -14px;
     position: absolute;
-    cursor: pointer;
+    cursor: help;
 }
 p.p_input span.label-text {
     width: 200px;
@@ -78,4 +78,7 @@ p.p_input span.info-text {
     font-weight: bold;
     font-style: italic;
     font-size: 16px;
+}
+.input_readonly {
+    color: #303242;
 }

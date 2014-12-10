@@ -10,33 +10,24 @@ class LocacaoCadastrarForm(forms.ModelForm):
         model = Locacao
 
     class Media:
-         css = {
-             'all': ('site/locacoes/form.css',)
-         }
-         js = ('site/locacoes/form.js', 'site/jquery-mask/jquery.mask.min.js',)
+        css = {
+            'all': (
+                'site/myscripts/locacoes_form.css',
+            )
+        }
+        js = (
+            'site/myscripts/locacoes_form.js',
+            'site/jquery-mask/jquery.mask.min.js',
+        )
 
 
-class LocacaoEditarForm(forms.ModelForm):
+class LocacaoEditarForm(LocacaoCadastrarForm):
 
-    class Meta:
-        model = Locacao
-
-    class Media:
-         css = {
-             'all': ('site/locacoes/form.css',)
-         }
-         js = ('site/locacoes/form.js', 'site/jquery-mask/jquery.mask.min.js',)
+    class Media(LocacaoCadastrarForm.Media):
+        pass
 
 
-class LocacaoExcluirForm(forms.ModelForm):
+class LocacaoExcluirForm(LocacaoCadastrarForm):
 
-    class Meta:
-        model = Locacao
-
-    class Media:
-         css = {
-             'all': ('site/locacoes/form.css',)
-         }
-         js = ('site/locacoes/form.js', 'site/jquery-mask/jquery.mask.min.js',)
-
-
+    class Media(LocacaoCadastrarForm.Media):
+        pass
