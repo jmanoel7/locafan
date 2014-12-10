@@ -29,8 +29,8 @@ CREATE TABLE "home_fantasia" (
     "nome" varchar(50) NOT NULL,
     "tipo" varchar(2) NOT NULL,
     "tema" varchar(50) NOT NULL,
-    "valor_fantasia" real NOT NULL,
-    "valor_locacao" real NOT NULL,
+    "valor_fantasia" decimal NOT NULL,
+    "valor_locacao" decimal NOT NULL,
     "qtde_total" integer NOT NULL,
     "qtde_disponivel" integer NOT NULL
 )
