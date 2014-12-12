@@ -1,0 +1,11 @@
+*.pyc
+*.pyo
+*.pyd
+*.so
+.*.swp
+*.sqlite
+tags
+ipython_notebooks/
+.ipynb_checkpoints/
+static/
+locafan.nja
