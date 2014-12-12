@@ -13,12 +13,12 @@
 {% endblock head %}
 
 {% block content %}
-{% ifchanged  %}  {% endifchanged %}{% ifchanged fantasia.tipo %}  {% endifchanged %}
-<div id='id_fantasias_app'>
 
-<h3>Lista de fantasias cadastradas</h3>
+<div id='id_tab_fantasias'>
 
 {% if fantasias %}
+
+<h3>{{ titulo_lista }}</h3>
 
     <div id='id_fantasias_table'>
     <table>
@@ -35,7 +35,7 @@
         <tbody>
     {% for fantasia in fantasias %}
             <tr>
-                <td><a href="{% url fantasias_editar_nome fantasia.nome %}">{{ fantasia.nome }}</a></td>
+                <td><a href="{% url fantasias_editar fantasia.nome fantasia.tipo fantasia.tema %}">{{ fantasia.nome }}</a></td>
                 <td>
                 {% if fantasia.tipo == "IM" %}
                     Infantil Masculino
@@ -54,7 +54,7 @@
                 <td>{{ fantasia.qtde_disponivel }}</td>
                 <td>
                 {% if fantasia.qtde_disponivel == fantasia.qtde_total %}
-                    <a href="{% url fantasias_excluir_nome fantasia.nome %}">Excluir?</a>
+                    <a href="{% url fantasias_excluir fantasia.nome fantasia.tipo fantasia.tema %}">Excluir?</a>
                 {% else %}
                     --
                 {% endif %}
@@ -67,13 +67,42 @@
 
 {% else %}
 
-  <p>Ainda não temos nenhuma fantasia cadastrada.</p>
+  <h3>{{ msg_lista_vazia }}</h3>
 
 {% endif %}
 
+<a href="#" id="a_voltar" class="ui-state-default ui-corner-all" onclick="location.assign('{% url home_index %}');">
+    <span class="ui-icon ui-icon-arrowreturnthick-1-w"></span>Voltar ao Inicio
+</a>
+
 </div>
 
+<style type="text/css" media="screen">
+#a_voltar {
+    padding: .4em 1em .4em 20px;
+    text-decoration: none;
+    position: relative;
+}
+#a_voltar span.ui-icon {
+    margin: 0 5px 0 0;
+    position: absolute;
+    left: .2em;
+    top: 50%;
+    margin-top: -8px;
+}
+</style>
+
 <script type="text/javascript" charset="utf-8">//<![CDATA[
+
+// Hover states on the static widgets
+$( "#a_voltar" ).hover(
+    function() {
+        $( this ).addClass( "ui-state-hover" );
+    },
+    function() {
+        $( this ).removeClass( "ui-state-hover" );
+    }
+);
 
 $('table').tablesorter({
 

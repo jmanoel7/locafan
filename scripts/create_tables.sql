@@ -1,8 +1,4 @@
 BEGIN;
-DROP TABLE "home_locacao";
-DROP TABLE "home_locacao_fantasias";
-DROP TABLE "home_fantasia";
-DROP TABLE "home_cliente";
 CREATE TABLE "home_cliente" (
     "id" integer NOT NULL PRIMARY KEY,
     "nome" varchar(100) NOT NULL UNIQUE,

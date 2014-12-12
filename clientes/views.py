@@ -29,12 +29,7 @@ def cadastrar(request):
     })
 
 
-def editar(request):
-
-    return render(request, 'clientes_busca.html', {'tarefa': 'Editar'})
-
-
-def editar_nome(request, nome):
+def editar(request, nome):
     cliente = get_object_or_404(Cliente, nome=nome)
     if request.method == 'POST':
         form = ClienteEditarForm(request.POST, instance=cliente)
@@ -114,17 +109,12 @@ def listar(request):
     clientes = Cliente.objects.all()
     return render(request, 'clientes_lista.html', {
         'clientes': clientes,
-        'titulo_lista': u'Lista de clientes cadastrados',
-        'msg_lista_vazia': u'Ainda não temos nenhum cliente cadastrado.',
+        'titulo_lista': u'Lista de Clientes Cadastrados',
+        'msg_lista_vazia': u'Ainda não temos nenhum Cliente Cadastrado.',
     })
 
 
-def excluir(request):
-
-    return render(request, 'clientes_busca.html', {'tarefa': 'Excluir'})
-
-
-def excluir_nome(request, nome):
+def excluir(request, nome):
 
     cliente = get_object_or_404(Cliente, nome=nome)
     if request.method == 'POST':

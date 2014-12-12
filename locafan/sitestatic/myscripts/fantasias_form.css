@@ -4,30 +4,46 @@
     font-size: 20px;
 }
 #id_fieldset {
-    width: 486px;
+    width: 506px;
     padding: 10px;
     border: 5px solid gray;
     margin: 10px;
     position: relative;
 }
-div.field_wrapper {
-    width: 430px;
+div.form_error {
+    height: 55px;
+    bottom: 10px;
+    position: relative;
+}
+div.field_wrapper,
+div.non_field_wrapper {
+    width: 455px;
     padding: 10px;
     border: 5px solid gray;
     margin: 10px;
+}
+div.non_field_wrapper {
+    height: 70px;
 }
 span.ui-icon-alert {
     left: 5px;
     top: 3px;
     position: relative;
 }
-span.field_error_message {
+span.field_error_message,
+span.non_field_error_message {
     left: 26px;
-    bottom: 21px;
     position: relative;
     color: #cd0a0a;
     font-weight: bold;
     font-size: 14px;
+}
+span.field_error_message {
+    bottom: 21px;
+}
+span.non_field_error_message {
+    bottom: 70px;
+    padding-right: 42px;
 }
 div.ui-state-error {
     padding-bottom: 5px;
@@ -39,14 +55,14 @@ p.p_input span.ui-icon {
     cursor: help;
 }
 p.p_input span.label-text {
-    width: 200px;
+    width: 225px;
     height: auto;
     left: 40px;
     margin-top: -18px;
     position: absolute;
 }
 p.p_input span.input-text {
-    width: 200px;
+    width: 225px;
     height: auto;
     left: 245px;
     margin-top: -18px;
@@ -59,12 +75,14 @@ p.p_input span.info-text {
     margin-top: -18px;
     position: absolute;
 }
-#id_submit_form {
+#a_submit_form, #a_voltar, #a_buscar {
     padding: .4em 1em .4em 20px;
     text-decoration: none;
     position: relative;
 }
-#id_submit_form span.ui-icon {
+#a_submit_form span.ui-icon,
+#a_voltar span.ui-icon,
+#a_buscar span.ui-icon {
     margin: 0 5px 0 0;
     position: absolute;
     left: .2em;

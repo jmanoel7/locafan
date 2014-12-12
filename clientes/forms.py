@@ -11,7 +11,7 @@ class NomeField(forms.Field):
         """Checa se o value consiste em um valor não nulo."""
 
         # Usa a manipulação da classe pai de campos obrigatórios
-        super(NomeField, self).validate(value)
+        #super(NomeField, self).validate(value)
 
         # Valida se o nome eh vazio
         if not value:
@@ -94,9 +94,9 @@ class ClienteCadastrarForm(forms.ModelForm):
     cep = forms.CharField(
         label=u'CEP',
         max_length=9,
-        help_text=u'Ao inserir o CEP, os dados do endereço serão preenchidos \
-automaticamente.\nCaso isso não ocorra os dados do endereço \
-deverão ser preenchidos manualmente.',
+        help_text=u'Ao inserir o CEP, os dados do endereço serão preenchidos '
+            u'automaticamente.\nCaso isso não ocorra os dados do endereço '
+            u'deverão ser preenchidos manualmente.',
         widget=CEPInput(
             address={
                 'street': 'id_end',
@@ -206,8 +206,8 @@ class ClienteBuscarNomeForm(forms.Form):
 
     nome = NomeField(
         label=u'Nome',
-        help_text=u'Informe pelo menos a parte de um nome para busca.\n\
-Isto é, informe pelo menos uma sílaba de um nome.',
+        help_text=u'Informe pelo menos a parte de um nome para busca.\n'
+            u'Isto é, informe pelo menos uma sílaba de um nome.',
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Digite o Nome',
@@ -259,16 +259,20 @@ class ClienteBuscarCPFForm(forms.Form):
 
 class ClienteEditarForm(ClienteCadastrarForm):
 
+    multa = forms.DecimalField(
+        label=u'Multa',
+        max_value=9999.99,
+        min_value=0.00,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': '0.000,00',
+                'maxlength': '8',
+            },
+        ),
+    )
+
     class Meta(ClienteCadastrarForm.Meta):
         exclude = ('tem_locacao',)
-        widgets = {
-            'multa': forms.TextInput(
-                attrs={
-                    'placeholder': '000.000,00',
-                    'maxlength': '10',
-                },
-            ),
-        }
 
 
 class ClienteExcluirForm(ClienteEditarForm):
@@ -334,7 +338,7 @@ class ClienteExcluirForm(ClienteEditarForm):
     )
     multa = forms.CharField(
         label=u'Multa',
-        max_length=10,
+        max_length=8,
         widget=forms.TextInput(
             attrs={
                 'disabled': 'true',

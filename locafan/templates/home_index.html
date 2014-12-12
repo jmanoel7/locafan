@@ -25,6 +25,15 @@ $(document).ready(function(){
     $("#id_btn_cadastrar_fantasia").click(function(){
         location.assign("{% url fantasias_cadastrar %}");
     });
+    $("#id_btn_buscar_fantasia_nome").click(function(){
+        location.assign("{% url fantasias_buscar_nome %}");
+    });
+    $("#id_btn_buscar_fantasia_tema").click(function(){
+        location.assign("{% url fantasias_buscar_tema %}");
+    });
+    $("#id_btn_buscar_fantasia_tipo").click(function(){
+        location.assign("{% url fantasias_buscar_tipo %}");
+    });
     $("#id_btn_listar_fantasias").click(function(){
         location.assign("{% url fantasias_listar %}");
     });
@@ -81,6 +90,21 @@ $(document).ready(function(){
             <li>
                 <button id="id_btn_cadastrar_fantasia" class="button">
                     Cadastrar Fantasia
+                </button>
+            </li>
+            <li>
+                <button id="id_btn_buscar_fantasia_nome" class="button">
+                    Buscar Fantasia pelo Nome
+                </button>
+            </li>
+            <li>
+                <button id="id_btn_buscar_fantasia_tema" class="button">
+                    Buscar Fantasia pelo Tema
+                </button>
+            </li>
+            <li>
+                <button id="id_btn_buscar_fantasia_tipo" class="button">
+                    Buscar Fantasia pelo Tipo
                 </button>
             </li>
             <li>

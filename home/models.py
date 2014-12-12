@@ -90,7 +90,7 @@ class Cliente(models.Model):
     multa = models.DecimalField(
         u'Multa',
         default=0.00,
-        max_digits=8,
+        max_digits=6,
         decimal_places=2,
     )
     tem_locacao = models.BooleanField(
@@ -115,37 +115,37 @@ class Fantasia(models.Model):
         ('CS', 'Casal'),
     )
     nome = models.CharField(
-        u'Nome',
+        u'Nome da Fantasia',
         max_length=50,
     )
     tipo = models.CharField(
-        u'Tipo',
+        u'Tipo da Fantasia',
         max_length=2,
         choices=TIPOS_DE_FANTASIAS,
     )
     tema = models.CharField(
-        u'Tema',
+        u'Tema da Fantasia',
         max_length=50,
     )
     valor_fantasia = models.DecimalField(
         u'Valor da Fantasia',
-        default=0.00,
-        max_digits=8,
+        default=300.00,
+        max_digits=6,
         decimal_places=2,
     )
     valor_locacao = models.DecimalField(
         u'Valor da Locação',
-        default=0.00,
-        max_digits=8,
+        default=3.00,
+        max_digits=6,
         decimal_places=2,
     )
     qtde_total = models.IntegerField(
         u'Quantidade Total',
-        default=0,
+        default=1,
     )
     qtde_disponivel = models.IntegerField(
         u'Quantidade Disponível',
-        default=0,
+        default=1,
     )
 
     def __unicode__(self):
@@ -168,7 +168,7 @@ class Locacao(models.Model):
     pg_realizado = models.DecimalField(
         u'Pagamento Realizado',
         default=0.00,
-        max_digits=8,
+        max_digits=6,
         decimal_places=2,
     )
     status = models.BooleanField(

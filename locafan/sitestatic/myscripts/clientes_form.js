@@ -35,8 +35,30 @@ $(function(){
     $('#id_tel_fixo').mask('(00) 0000-0000', {placeholder: '(__) ____-____'});
     $('#id_tel_cel').mask('(00) 0000-0000', {placeholder: '(__) ____-____'});
     $('#id_tel_trab').mask('(00) 0000-0000', {placeholder: '(__) ____-____'});
-    if ($('#id_multa').get(0))
-        $('#id_multa').mask('000.000,00', {placeholder: '000.000,00', reverse: true});
+    if ($('#id_multa').get(0)) {
+        // se necessario troca '.' por ',' no campo: 'multa'
+        multa = $('#id_multa').val();
+        if (multa.indexOf('.') != -1) {
+            multa = multa.replace('.', ',');
+        } else {
+            if (multa == '') {
+                multa = '0,00';
+            } else {
+                multa = multa.replace(/$/, ',00');
+            }
+        }
+        // Coloca um zero no fim
+        re = /(\,\d)$/;
+        multa=multa.replace(re,"$1"+"0");
+        // Coloca um zero antes da vírgula
+        re = /^(\,\d{2})$/;
+        multa=multa.replace(re,"0"+"$1");
+        // Coloca um ponto antes dos 5 últimos dígitos
+        re = /(\d)(\d{3})\,(\d{2})$/;
+        multa=multa.replace(re,"$1.$2,$3");
+        $('#id_multa').val(multa);
+        $('#id_multa').mask('0.000,00', {placeholder: '0.000,00', reverse: true});
+    }
 });
 
 $(document).ready(function(){
@@ -123,8 +145,8 @@ $(document).ready(function(){
         $("#id_form").submit();
     });
     $("#a_submit_form").click(function(event){
-	  $("#dialog").dialog("open");
-      event.preventDefault();
+        $("#dialog").dialog("open");
+        event.preventDefault();
     });
     // Hover states on the static widgets
     $( "#a_submit_form, #a_voltar, #a_buscar" ).hover(

@@ -33,8 +33,8 @@ urlpatterns = patterns('',
     ),
     url(
         r'^clientes/editar/(?P<nome>.+)/$',
-        'clientes.views.editar_nome',
-        name='clientes_editar_nome',
+        'clientes.views.editar',
+        name='clientes_editar',
     ),
     url(
         r'^clientes/listar/$',
@@ -42,14 +42,9 @@ urlpatterns = patterns('',
         name='clientes_listar',
     ),
     url(
-        r'^clientes/excluir/$',
+        r'^clientes/excluir/(?P<nome>.+)/$',
         'clientes.views.excluir',
         name='clientes_excluir',
-    ),
-    url(
-        r'^clientes/excluir/(?P<nome>.+)/$',
-        'clientes.views.excluir_nome',
-        name='clientes_excluir_nome',
     ),
     url(
         r'^fantasias/cadastrar/$',
@@ -57,14 +52,24 @@ urlpatterns = patterns('',
         name='fantasias_cadastrar',
     ),
     url(
-        r'^fantasias/editar/$',
+        r'^fantasias/editar/(?P<nome>.+)/(?P<tipo>[A-Z]{2})/(?P<tema>.+)/$',
         'fantasias.views.editar',
         name='fantasias_editar',
     ),
     url(
-        r'^fantasias/editar/(?P<nome>.+)/$',
-        'fantasias.views.editar_nome',
-        name='fantasias_editar_nome',
+        r'^fantasias/buscar_nome/$',
+        'fantasias.views.buscar_nome',
+        name='fantasias_buscar_nome',
+    ),
+    url(
+        r'^fantasias/buscar_tema/$',
+        'fantasias.views.buscar_tema',
+        name='fantasias_buscar_tema',
+    ),
+    url(
+        r'^fantasias/buscar_tipo/$',
+        'fantasias.views.buscar_tipo',
+        name='fantasias_buscar_tipo',
     ),
     url(
         r'^fantasias/listar/$',
@@ -72,24 +77,14 @@ urlpatterns = patterns('',
         name='fantasias_listar',
     ),
     url(
-        r'^fantasias/excluir/$',
+        r'^fantasias/excluir/(?P<nome>.+)/(?P<tipo>[A-Z]{2})/(?P<tema>.+)/$',
         'fantasias.views.excluir',
         name='fantasias_excluir',
-    ),
-    url(
-        r'^fantasias/excluir/(?P<nome>.+)/$',
-        'fantasias.views.excluir_nome',
-        name='fantasias_excluir_nome'
     ),
     url(
         r'^locacoes/cadastrar/$',
         'locacoes.views.cadastrar',
         name='locacoes_cadastrar',
-    ),
-    url(
-        r'^locacoes/editar/$',
-        'locacoes.views.editar',
-        name='locacoes_editar',
     ),
     url(
         r'^locacoes/editar/(?P<dt_devolucao>.+)/$',
@@ -100,11 +95,6 @@ urlpatterns = patterns('',
         r'^locacoes/listar/$',
         'locacoes.views.listar',
         name='locacoes_listar',
-    ),
-    url(
-        r'^locacoes/excluir/$',
-        'locacoes.views.excluir',
-        name='locacoes_excluir',
     ),
     url(
         r'^locacoes/excluir/(?P<dt_devolucao>.+)/$',

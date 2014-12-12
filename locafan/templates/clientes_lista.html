@@ -14,7 +14,7 @@
 
 {% block content %}
 
-<div id='id_clientes_app'>
+<div id='id_tab_clientes'>
 
 {% if clientes %}
 
@@ -34,13 +34,13 @@
         <tbody>
 {% for cliente in clientes %}
             <tr>
-                <td><a href='{% url clientes_editar_nome cliente.nome %}'>{{ cliente.nome }}</a></td>
+                <td><a href='{% url clientes_editar cliente.nome %}'>{{ cliente.nome }}</a></td>
                 <td class='cpf'>{{ cliente.cpf }}</td>
                 <td class='multa'>{{ cliente.multa }}</td>
                 <td class='tel_cel'>{{ cliente.tel_cel }}</td>
                 <td>
                 {% if not cliente.tem_locacao %}
-                    <a href='{% url clientes_excluir_nome cliente.nome %}'>Excluir?</a>
+                    <a href='{% url clientes_excluir cliente.nome %}'>Excluir?</a>
                 {% else %}
                     --
                 {% endif %}
@@ -57,11 +57,11 @@
 
 {% endif %}
 
-</div>
-
 <a href="#" id="a_voltar" class="ui-state-default ui-corner-all" onclick="location.assign('{% url home_index %}');">
-    <span class="ui-icon ui-icon-arrowreturnthick-1-w"></span>Voltar
+    <span class="ui-icon ui-icon-arrowreturnthick-1-w"></span>Voltar ao Inicio
 </a>
+
+</div>
 
 <style type="text/css" media="screen">
 #a_voltar {
@@ -113,20 +113,30 @@ function mascara_cpf(cpf)
 
 function mascara_multa(multa)
 {
-    //Remove tudo o que não é dígito
-    re = /\D/g;
+    // Remove tudo o que não é dígito e vírgula
+    re = /[^\,0-9]/g;
     multa=multa.replace(re,"");
 
-    //Coloca uma virgula depois dos 2 únicos dígitos
-    re = /^(\d{2})$/;
-    multa=multa.replace(re,"$1,00");
+    if (multa.indexOf(',') == -1) {
+        // Valor Default
+        re = /^$/;
+        multa=multa.replace(re,"0,00");
 
-    //Coloca uma virgula antes dos 2 ultimos dígitos
-    re = /(\d)(\d{2})$/;
-    multa=multa.replace(re,"$1,$2");
+        // Coloca ',00' no fim
+        re = /^(\d+)$/;
+        multa=multa.replace(re,"$1,00");
+    }
 
-    //Coloca um ponto depois dos 5 ultimos dígitos
-    re = /(\d)(\d{3}),(\d{2})$/;
+    // Coloca um zero no fim
+    re = /(\,\d)$/;
+    multa=multa.replace(re,"$1"+"0");
+
+    // Coloca um zero antes da vírgula
+    re = /^(\,\d{2})$/;
+    multa=multa.replace(re,"0"+"$1");
+
+    // Coloca um ponto antes dos 5 últimos dígitos
+    re = /(\d)(\d{3})\,(\d{2})$/;
     multa=multa.replace(re,"$1.$2,$3");
 
     return multa;
