@@ -22,6 +22,6 @@ Se deu tudo certo, abra agora um web browser no endereço:
 
 ## TODO:
 =======
-* Terminar de implementar as validações das regras de negócios
-* Terminar de customizar o projeto locafan
+* Finalizar o relatório de TCC
+* Finalizar a app 'locacoes'
 
