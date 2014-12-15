@@ -27,15 +27,17 @@
                 <th>NOME</th>
                 <th>TIPO</th>
                 <th>TEMA</th>
-                <th>QUANTIDADE TOTAL</th>
-                <th>QUANTIDADE DISPONIVEL</th>
                 <th>EXCLUS&Atilde;O</th>
             </tr>
         </thead>
         <tbody>
     {% for fantasia in fantasias %}
             <tr>
-                <td><a href="{% url fantasias_editar fantasia.nome fantasia.tipo fantasia.tema %}">{{ fantasia.nome }}</a></td>
+                {% if not fantasia.tem_locacao %}
+                    <td><a href="{% url fantasias_editar fantasia.nome fantasia.tipo fantasia.tema %}">{{ fantasia.nome }}</a></td>
+                {% else %}
+                    <td>{{ fantasia.nome }}</td>
+                {% endif %}
                 <td>
                 {% if fantasia.tipo == "IM" %}
                     Infantil Masculino
@@ -50,10 +52,8 @@
                 {% endif %}
                 </td>
                 <td>{{ fantasia.tema }}</td>
-                <td>{{ fantasia.qtde_total }}</td>
-                <td>{{ fantasia.qtde_disponivel }}</td>
                 <td>
-                {% if fantasia.qtde_disponivel == fantasia.qtde_total %}
+                {% if not fantasia.tem_locacao %}
                     <a href="{% url fantasias_excluir fantasia.nome fantasia.tipo fantasia.tema %}">Excluir?</a>
                 {% else %}
                     --
@@ -177,12 +177,6 @@ $('table').tablesorter({
             sorter: "text"
         },
         3: {
-            sorter: "digit"
-        },
-        4: {
-            sorter: "digit"
-        },
-        5: {
             sorter: false
         }
     },
@@ -198,9 +192,7 @@ $('table').tablesorter({
         [0, 0],
         [1, 0],
         [2, 0],
-        [3, 0],
-        [4, 0],
-        [5, 0]
+        [3, 0]
     ],
     // default sort that is added to the end of the users sort
     // selection.

@@ -57,7 +57,7 @@ $(function(){
         re = /(\d)(\d{3})\,(\d{2})$/;
         multa=multa.replace(re,"$1.$2,$3");
         $('#id_multa').val(multa);
-        $('#id_multa').mask('0.000,00', {placeholder: '0.000,00', reverse: true});
+        $('#id_multa').mask('000.000,00', {placeholder: '000.000,00', reverse: true});
     }
 });
 

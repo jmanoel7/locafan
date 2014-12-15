@@ -27,8 +27,7 @@ CREATE TABLE "home_fantasia" (
     "tema" varchar(50) NOT NULL,
     "valor_fantasia" decimal NOT NULL,
     "valor_locacao" decimal NOT NULL,
-    "qtde_total" integer NOT NULL,
-    "qtde_disponivel" integer NOT NULL
+    "tem_locacao" bool NOT NULL
 )
 ;
 CREATE TABLE "home_locacao_fantasias" (
@@ -42,8 +41,10 @@ CREATE TABLE "home_locacao" (
     "id" integer NOT NULL PRIMARY KEY,
     "dt_locacao" date NOT NULL,
     "dt_devolucao" date NOT NULL,
-    "pg_realizado" decimal NOT NULL,
     "status" bool NOT NULL,
+    "pg_realizado" decimal NOT NULL,
+    "pg_apagar" decimal NOT NULL,
+    "custo_total" decimal NOT NULL,
     "cliente_id" integer NOT NULL REFERENCES "home_cliente" ("id")
 )
 ;

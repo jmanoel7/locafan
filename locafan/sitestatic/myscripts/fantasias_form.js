@@ -1,26 +1,4 @@
 $(function(){
-    // poe a mascara no campo: 'qtde_disponivel'
-    if ($('#id_qtde_disponivel').get(0)) {
-        qtde_disponivel = $('#id_qtde_disponivel').val();
-        if (qtde_disponivel.search(/^\d$/) == 0) {
-            qtde_disponivel = qtde_disponivel.replace(/^/, '0');
-        } else if (qtde_disponivel == '') {
-            qtde_disponivel = '01';
-        }
-        $('#id_qtde_disponivel').val(qtde_disponivel);
-        $('#id_qtde_disponivel').mask('00', {placeholder: '00'});
-    }
-    // poe a mascara no campo: 'qtde_total'
-    if ($('#id_qtde_total').get(0)) {
-        qtde_total = $('#id_qtde_total').val();
-        if (qtde_total.search(/^\d$/) == 0) {
-            qtde_total = qtde_total.replace(/^/, '0');
-        } else if (qtde_total == '') {
-            qtde_total = '01';
-        }
-        $('#id_qtde_total').val(qtde_total);
-        $('#id_qtde_total').mask('00', {placeholder: '00'});
-    }
     // poe a mascara no campo: 'valor_fantasia'
     if ($('#id_valor_fantasia').get(0)) {
         valor_fantasia = $('#id_valor_fantasia').val();
@@ -52,7 +30,7 @@ $(function(){
             valor_locacao = valor_locacao.replace('.', ',');
         } else {
             if (valor_locacao == '') {
-                valor_locacao = '3,00';
+                valor_locacao = '15,00';
             } else {
                 valor_locacao = valor_locacao.replace(/$/, ',00');
             }
@@ -63,11 +41,8 @@ $(function(){
         // Coloca um zero antes da vírgula
         re = /^(\,\d{2})$/;
         valor_locacao=valor_locacao.replace(re,"0"+"$1");
-        // Coloca um ponto antes dos 5 últimos dígitos
-        re = /(\d)(\d{3})\,(\d{2})$/;
-        valor_locacao=valor_locacao.replace(re,"$1.$2,$3");
         $('#id_valor_locacao').val(valor_locacao);
-        $('#id_valor_locacao').mask('0.000,00', {placeholder: '0.000,00', reverse: true});
+        $('#id_valor_locacao').mask('000,00', {placeholder: '000,00', reverse: true});
     }
 });
 
@@ -162,6 +137,25 @@ $(document).ready(function(){
                 $('#id_valor_locacao').val(valor_locacao);
             } else {
                 $('#id_valor_locacao').unmask();
+            }
+        }
+        if ($("#id_legend").text() == "Excluir Fantasia" || $("#id_legend").text() == "Editar Fantasia") {
+            switch($('#id_tipo').val()) {
+                case 'Infantil Masculino':
+                    $('#id_tipo').val('IM');
+                    break;
+                case 'Infantil Feminino':
+                    $('#id_tipo').val('IF');
+                    break;
+                case 'Adulto Masculino':
+                    $('#id_tipo').val('AM');
+                    break;
+                case 'Adulto Feminino':
+                    $('#id_tipo').val('AF');
+                    break;
+                case 'Casal':
+                    $('#id_tipo').val('CS');
+                    break;
             }
         }
     });

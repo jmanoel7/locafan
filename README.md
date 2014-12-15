@@ -22,6 +22,4 @@ Se deu tudo certo, abra agora um web browser no endereço:
 
 ## TODO:
 =======
-* Finalizar o relatório de TCC
-* Finalizar a app 'locacoes'
-
+* Finalizar correção de bugs

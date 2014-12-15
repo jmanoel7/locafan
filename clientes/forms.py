@@ -261,12 +261,12 @@ class ClienteEditarForm(ClienteCadastrarForm):
 
     multa = forms.DecimalField(
         label=u'Multa',
-        max_value=9999.99,
+        max_value=999999.99,
         min_value=0.00,
         widget=forms.TextInput(
             attrs={
-                'placeholder': '0.000,00',
-                'maxlength': '8',
+               'placeholder': '000.000,00',
+                'maxlength': '10',
             },
         ),
     )

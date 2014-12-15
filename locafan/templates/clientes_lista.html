@@ -39,7 +39,7 @@
                 <td class='multa'>{{ cliente.multa }}</td>
                 <td class='tel_cel'>{{ cliente.tel_cel }}</td>
                 <td>
-                {% if not cliente.tem_locacao %}
+                {% if not cliente.tem_locacao and cliente.multa == 0.0 %}
                     <a href='{% url clientes_excluir cliente.nome %}'>Excluir?</a>
                 {% else %}
                     --

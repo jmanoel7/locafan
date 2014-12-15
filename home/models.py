@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.localflavor.br.br_states import STATE_CHOICES
+import re
+from decimal import Decimal, ROUND_HALF_DOWN
 #from django.template.defaultfilters import default
+
+from locafan.lib.mascaras import mascara_valor
 
 
 class Cliente(models.Model):
@@ -90,7 +94,7 @@ class Cliente(models.Model):
     multa = models.DecimalField(
         u'Multa',
         default=0.00,
-        max_digits=6,
+        max_digits=8,
         decimal_places=2,
     )
     tem_locacao = models.BooleanField(
@@ -99,9 +103,10 @@ class Cliente(models.Model):
     )
 
     def __unicode__(self):
-        return 'Nome: %s, CPF: %s' % (
+        cpf = re.sub(r'(\d{3})(\d{3})(\d{3})(\d{2})', r'\1.\2.\3-\4', self.cpf)
+        return '%s, CPF: %s' % (
             self.nome,
-            self.cpf,
+            cpf,
         )
 
 
@@ -110,8 +115,8 @@ class Fantasia(models.Model):
     TIPOS_DE_FANTASIAS = (
         ('IM', 'Infantil Masculino'),
         ('IF', 'Infantil Feminino'),
-        ('AF', 'Adulto Feminino'),
         ('AM', 'Adulto Masculino'),
+        ('AF', 'Adulto Feminino'),
         ('CS', 'Casal'),
     )
     nome = models.CharField(
@@ -135,25 +140,38 @@ class Fantasia(models.Model):
     )
     valor_locacao = models.DecimalField(
         u'Valor da Locação',
-        default=3.00,
-        max_digits=6,
+        default=15.00,
+        max_digits=5,
         decimal_places=2,
     )
-    qtde_total = models.IntegerField(
-        u'Quantidade Total',
-        default=1,
-    )
-    qtde_disponivel = models.IntegerField(
-        u'Quantidade Disponível',
-        default=1,
+    tem_locacao = models.BooleanField(
+        u'Possui locação em aberto?',
+        default=False,
     )
 
     def __unicode__(self):
-        return 'NOME: %s, TIPO: %s, TEMA: %s, DISPONIVEIS: %s' % (
+
+        valor = Decimal(7.0 * float(self.valor_locacao)).quantize(
+                Decimal('.01'), rounding=ROUND_HALF_DOWN,
+        )
+        valor = mascara_valor(valor)
+
+        if self.tipo == "AM":
+            tipo = "Adulto Masculino"
+        elif self.tipo == "AF":
+            tipo = "Adulto Feminino"
+        elif self.tipo == "CS":
+            tipo = "Casal"
+        elif self.tipo == "IF":
+            tipo = "Infantil Feminino"
+        elif self.tipo == "IM":
+            tipo = "Infantil Masculino"
+
+        return '%s, %s, %s, R$ %s' % (
             self.nome,
-            self.tipo,
+            tipo,
             self.tema,
-            self.qtde_disponivel,
+            valor,
         )
 
 
@@ -165,20 +183,36 @@ class Locacao(models.Model):
     dt_devolucao = models.DateField(
         u'Data de Devolução',
     )
+    status = models.BooleanField(
+        u'Status da Locação',
+        default=True,
+    )
     pg_realizado = models.DecimalField(
         u'Pagamento Realizado',
         default=0.00,
-        max_digits=6,
+        max_digits=8,
         decimal_places=2,
     )
-    status = models.BooleanField(
-        u'Status da Locação',
+    pg_apagar = models.DecimalField(
+        u'Pagamento a Pagar',
+        default=0.00,
+        max_digits=8,
+        decimal_places=2,
     )
-    cliente = models.ForeignKey(Cliente)
+    custo_total = models.DecimalField(
+        u'Custo Total da Locação',
+        default=0.00,
+        max_digits=8,
+        decimal_places=2,
+    )
+    cliente = models.ForeignKey(
+        Cliente,
+        limit_choices_to={'tem_locacao': False}
+    )
     fantasias = models.ManyToManyField(Fantasia)
 
     def __unicode__(self):
-        return u'CLIENTE: %s, DATA DE LOCAÇÃO: %s, DATA DE DEVOLUÇÃO: %s' % (
+        return u'%s, Locação: %s, Devolução: %s' % (
             self.cliente,
             self.dt_locacao,
             self.dt_devolucao,
