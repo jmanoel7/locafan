@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}LocaFan - {{ tarefa }}{% if nome %}: {{ nome }}{% endif %}{% endblock %}
+
+{% block head %}
+
+{% load static from staticfiles %}
+{{ form.media }}
+
+{% endblock head %}
+
+{% block content %}
+
+<div id='id_tab_fantasias'>
+
+<fieldset id='id_fieldset'>
+<legend id='id_legend'>{{ tarefa }}</legend>
+
+{% for form_error in form.non_field_errors %}
+
+<div class="non_field_wrapper">
+    <p class="p_error">
+        <span class="non_field_error_message">{% if form_error|striptags|length > 0 %}{{ form_error|striptags }}{% endif %}<span>
+    </p>
+</div>
+
+{% endfor %}
+
+<form id="id_form" action="." method="post">{% csrf_token %}
+    {# Include the hidden fields #}
+    {# % for hidden in form.hidden_fields % #}
+        {# { hidden } #}
+    {# % endfor % #}
+    {# Include the visible fields #}
+    {% for field in form.visible_fields %}
+        <div id="p_{{ field.id_for_label }}" class="field_wrapper">
+            <p class="p_error">
+                <span class="field_error_message">{% if field.errors|striptags|length > 0 %}{{ field.errors|striptags }}{% endif %}<span>
+            </p>
+            <p class="p_input">
+                <span class="label-text">{{ field.label_tag }}: </span><span class="input-text">{{ field }}</span>{% if field.help_text %}<span title="{{ field.help_text }}" class="ui-icon ui-icon-info"></span>{% else %}<span class='info-text'></span>{% endif %}
+            </p>
+        </div>
+    {% endfor %}
+</form>
+
+{% if tarefa == "Buscar Fantasia pelo Nome" or tarefa == "Buscar Fantasia pelo Tipo" or tarefa == "Buscar Fantasia pelo Tema" %}
+
+    <p id="p_submit_form">
+        <a href="#" id="a_buscar" class="ui-state-default ui-corner-all">
+            <span class="ui-icon ui-icon-arrowreturnthick-1-e"></span>{{ botao }} Dados
+        </a>
+        &nbsp;
+        <a href="#" id="a_voltar" class="ui-state-default ui-corner-all" onclick="location.assign('{% url home_index %}');">
+            <span class="ui-icon ui-icon-arrowreturnthick-1-w"></span>Voltar ao Inicio
+        </a>
+    </p>
+
+{% else %}
+
+    <p id="p_submit_form">
+        <a href="#" id="a_submit_form" class="ui-state-default ui-corner-all">
+            <span class="ui-icon ui-icon-newwin"></span>{{ botao }} Dados
+        </a>
+        &nbsp;
+        <a href="#" id="a_voltar" class="ui-state-default ui-corner-all" onclick="location.assign('{% url home_index %}');">
+            <span class="ui-icon ui-icon-arrowreturnthick-1-w"></span>Voltar ao Inicio
+        </a>
+    </p>
+
+    <div id="dialog" title="{{ tarefa }}">
+        {% if nome %}
+            <p>Deseja mesmo {{ botao|lower }} os dados da fantasia: {{ nome }} ?</p>
+        {% else %}
+            <p>Deseja mesmo {{ botao|lower }} os dados da fantasia ?</p>
+        {% endif %}
+    </div>
+
+{% endif %}
+
+</fieldset>
+
+</div>
+
+<script type="text/javascript" charset="utf-8">
+$(function(){
+    // Exibir o icone de alerta em caso de erro:
+    errors = document.getElementsByClassName("field_error_message");
+    for (i=0; i<errors.length; i++) {
+        re = /^<span>\s*<\/span>$/;
+        errors[i].innerHTML=errors[i].innerHTML.replace(re,"");
+        if (errors[i].innerHTML.length > 0)
+            $("<div class='ui-state-error ui-corner-all'><span class='ui-icon ui-icon-alert'></span></div>").insertBefore(errors[i]);
+    }
+    errors = document.getElementsByClassName("non_field_error_message");
+    for (i=0; i<errors.length; i++) {
+        re = /^<span>\s*<\/span>$/;
+        errors[i].innerHTML=errors[i].innerHTML.replace(re,"");
+        if (errors[i].innerHTML.length > 0)
+            $("<div class='ui-state-error ui-corner-all form_error'><span class='ui-icon ui-icon-alert'></span></div>").insertBefore(errors[i]);
+    }
+    {% if pg_total_apagar %}
+        $("#id_pg_apagar").val("{{ pg_total_apagar }}");
+    {% endif %}
+});
+</script>
+
+{% endblock %}

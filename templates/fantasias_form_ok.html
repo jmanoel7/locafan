@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}LocaFan - {{ tarefa }} da fantasia conclu&iacute;d{{ genero }} com sucesso! {% endblock %}
+
+{% block content %}
+
+<h3>{{ tarefa }} da fantasia:</h3>
+
+<h2>Nome = <q>{{ nome }}</q></h2>
+{% if tipo == "IM" %}
+<h2>Tipo = <q>Infantil Masculino</q></h2>
+{% elif tipo == "IF" %}
+<h2>Tipo = <q>Infantil Feminino</q></h2>
+{% elif tipo == "AM" %}
+<h2>Tipo = <q>Adulto Masculino</q></h2>
+{% elif tipo == "AF" %}
+<h2>Tipo = <q>Adulto Feminino</q></h2>
+{% elif tipo == "CS" %}
+<h2>Tipo = <q>Casal</q></h2>
+{% endif %}
+<h2>Tema = <q>{{ tema }}</q></h2>
+
+<h3>conclu&iacute;d{{ genero }} com sucesso!</h3>
+
+<a href="#" id="a_voltar" class="ui-state-default ui-corner-all" onclick="location.assign('{% url home_index %}');">
+    <span class="ui-icon ui-icon-arrowreturnthick-1-w"></span>Voltar ao Inicio
+</a>
+
+<script type="text/javascript" charset="utf-8">//<![CDATA[
+// Hover states on the static widgets
+$( "#a_voltar" ).hover(
+    function() {
+        $( this ).addClass( "ui-state-hover" );
+    },
+    function() {
+        $( this ).removeClass( "ui-state-hover" );
+    }
+);
+//]]>
+</script>
+
+<style type="text/css" media="screen">
+#a_voltar {
+    padding: .4em 1em .4em 20px;
+    text-decoration: none;
+    position: relative;
+}
+#a_voltar span.ui-icon {
+    margin: 0 5px 0 0;
+    position: absolute;
+    left: .2em;
+    top: 50%;
+    margin-top: -8px;
+}
+</style>
+
+{% endblock %}
