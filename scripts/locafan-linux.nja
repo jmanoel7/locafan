@@ -1,0 +1,36 @@
+{
+  "mainFile": "manage.py", 
+  "use-tabs": false, 
+  "venv": "/home/joaomanoel/.local/venvs/locafan/bin/python", 
+  "relatedProjects": [
+    "/home/joaomanoel/Meus_Projetos/locafan", 
+    "/home/joaomanoel/Meus_Projetos/locafan/locafan", 
+    "/home/joaomanoel/Meus_Projetos/locafan/home", 
+    "/home/joaomanoel/Meus_Projetos/locafan/clientes", 
+    "/home/joaomanoel/Meus_Projetos/locafan/fantasias", 
+    "/home/joaomanoel/Meus_Projetos/locafan/locacoes"
+  ], 
+  "name": "locafan", 
+  "license": "GNU General Public License v3", 
+  "url": "", 
+  "pythonPath": "python", 
+  "preExecScript": "", 
+  "additional_builtins": [], 
+  "programParams": "runserver", 
+  "indentation": 4, 
+  "PYTHONPATH": "", 
+  "supported-extensions": [
+    ".py", 
+    ".html", 
+    ".jpg", 
+    ".png", 
+    ".ui", 
+    ".css", 
+    ".json", 
+    ".js", 
+    ".ini"
+  ], 
+  "project-type": "Django App", 
+  "postExecScript": "/home/joaomanoel/Meus_Projetos/locafan/scripts/kill-locafan.sh",
+  "description": ""
+}

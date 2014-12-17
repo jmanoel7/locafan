@@ -1,0 +1,36 @@
+{
+  "mainFile": "./manage.py", 
+  "use-tabs": false, 
+  "venv": "C:/Documents and Settings/USER/venvs/locafan\\Scripts\\python.exe", 
+  "relatedProjects": [
+    "C:/Documents and Settings/USER/projects/locafan", 
+    "C:/Documents and Settings/USER/projects/locafan/locafan", 
+    "C:/Documents and Settings/USER/projects/locafan/home", 
+    "C:/Documents and Settings/USER/projects/locafan/clientes", 
+    "C:/Documents and Settings/USER/projects/locafan/fantasias", 
+    "C:/Documents and Settings/USER/projects/locafan/locacoes"
+  ], 
+  "name": "locafan", 
+  "license": "GNU General Public License v3", 
+  "url": "http://localhost:8000", 
+  "pythonPath": "C:\\Python27\\python.exe", 
+  "preExecScript": "", 
+  "additional_builtins": [], 
+  "programParams": "runserver", 
+  "indentation": 4, 
+  "PYTHONPATH": "", 
+  "supported-extensions": [
+    ".py", 
+    ".html", 
+    ".jpg", 
+    ".png", 
+    ".ui", 
+    ".css", 
+    ".json", 
+    ".js", 
+    ".ini"
+  ], 
+  "project-type": "Django App", 
+  "postExecScript": "./scripts/kill-locafan.bat", 
+  "description": ""
+}
